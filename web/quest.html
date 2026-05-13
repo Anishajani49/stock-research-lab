@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quest Mode — Stock Research Lab</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+</head>
+<body class="quest-body">
+  <div class="quest-bg-orb quest-bg-orb-1"></div>
+  <div class="quest-bg-orb quest-bg-orb-2"></div>
+  <div class="quest-bg-grid"></div>
+
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="/">
+        <span class="brand-mark"></span>
+        <span>Stock Research Lab</span>
+      </a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/dashboard">Analyze</a>
+        <a href="/quest" class="active">Quest Mode</a>
+        <a href="/learn">Learn Charts</a>
+        <a href="/annual-report">Annual Report</a>
+        <a href="/glossary">Dictionary</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="quest-hero">
+    <div class="container">
+      <span class="quest-badge">Duolingo-Style Market Learning</span>
+      <h1>Stock Market Quest + Candlestick Game</h1>
+      <p>
+        Learn finance by playing. Finish 5 guided missions on a real Indian stock, then unlock
+        a candlestick pattern challenge on the same chart.
+      </p>
+      <div class="quest-input-row">
+        <input id="quest-ticker" class="search-input quest-input" type="text"
+          placeholder="Enter ticker (e.g. RELIANCE, INFY, TCS)" autocomplete="off" spellcheck="false" />
+        <button id="quest-start" class="quest-start-btn">Start Quest</button>
+      </div>
+      <div class="quest-note">
+        Educational only. No buy/sell calls. We help you decide if a stock is worth studying further.
+      </div>
+    </div>
+  </header>
+
+  <main class="container quest-main">
+    <section class="quest-hud">
+      <div class="quest-stat">
+        <div class="quest-stat-label">XP</div>
+        <div id="quest-xp" class="quest-stat-value">0</div>
+      </div>
+      <div class="quest-stat">
+        <div class="quest-stat-label">Level</div>
+        <div id="quest-level" class="quest-stat-value">1</div>
+      </div>
+      <div class="quest-stat">
+        <div class="quest-stat-label">Streak</div>
+        <div id="quest-streak" class="quest-stat-value">0</div>
+      </div>
+      <div class="quest-progress-wrap">
+        <div class="quest-progress-head">
+          <span>Quest Progress</span>
+          <span id="quest-progress-label">0 / 5</span>
+        </div>
+        <div class="quest-progress-track">
+          <div id="quest-progress-fill" class="quest-progress-fill"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="quest-loader" class="empty hidden">
+      <div class="spinner"></div>
+      <div style="margin-top: 12px;">Building your missions from live market data...</div>
+    </section>
+
+    <section id="quest-error" class="empty hidden" style="color: var(--bear);"></section>
+
+    <section id="quest-missions" class="hidden">
+      <div class="quest-section-head">
+        <h2>Game 1: Stock Market Quest Mode</h2>
+        <p id="quest-subtitle" class="muted">Answer each mission to level up your analysis mindset.</p>
+      </div>
+      <div id="mission-list" class="mission-list"></div>
+    </section>
+
+    <section id="candlestick-game" class="hidden">
+      <div class="quest-section-head">
+        <h2>Game 2: Candlestick Pattern Game</h2>
+        <p class="muted">Read the marked candle and identify the pattern correctly.</p>
+      </div>
+
+      <div class="quest-grid-2">
+        <div class="quest-panel">
+          <div class="quest-panel-head">
+            <h3 id="candle-round-title">Round 1</h3>
+            <span id="candle-round-chip" class="quest-chip">0 / 0</span>
+          </div>
+          <div id="candle-chart" class="candle-chart"></div>
+          <div class="quest-microcopy">Marker points to the candle to classify.</div>
+        </div>
+
+        <div class="quest-panel">
+          <h3 id="candle-question">Pattern question</h3>
+          <div id="candle-options" class="mission-options"></div>
+          <div id="candle-feedback" class="quest-feedback muted"></div>
+          <div class="quest-actions">
+            <button id="candle-next" class="quest-secondary-btn hidden">Next Round</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="disclaimer">
+    <div class="container">
+      <strong>Disclaimer:</strong> Educational content only. This is not financial advice.
+      No buy/sell/target-price recommendations are provided.
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/quest.js"></script>
+</body>
+</html>

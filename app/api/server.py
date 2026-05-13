@@ -273,6 +273,10 @@ if WEB_DIR.exists():
     def page_learn() -> FileResponse:
         return FileResponse(WEB_DIR / "learn.html")
 
+    @app.get("/quest")
+    def page_quest() -> FileResponse:
+        return FileResponse(WEB_DIR / "quest.html")
+
     @app.get("/glossary")
     def page_glossary() -> FileResponse:
         return FileResponse(WEB_DIR / "glossary.html")
