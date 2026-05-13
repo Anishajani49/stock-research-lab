@@ -240,12 +240,16 @@ function renderChart(data) {
     document.getElementById('trend-narrative').textContent = '';
     return;
   }
+  const dark = document.body.classList.contains('observatory');
+  const theme = dark
+    ? { bg: 'rgba(0,0,0,0)', text: '#c2c7d6', border: 'rgba(255,255,255,.10)', grid: 'rgba(255,255,255,.05)' }
+    : { bg: '#FFFFFF', text: '#475569', border: '#E2E8F0', grid: '#F1F5F9' };
   const chart = LightweightCharts.createChart($c, {
     autoSize: true,
-    layout: { background: { color: '#FFFFFF' }, textColor: '#475569', fontFamily: '-apple-system, system-ui, Inter' },
-    rightPriceScale: { borderColor: '#E2E8F0' },
-    timeScale: { borderColor: '#E2E8F0', timeVisible: false },
-    grid: { vertLines: { color: '#F1F5F9' }, horzLines: { color: '#F1F5F9' } },
+    layout: { background: { color: theme.bg }, textColor: theme.text, fontFamily: 'Manrope, -apple-system, system-ui, Inter' },
+    rightPriceScale: { borderColor: theme.border },
+    timeScale: { borderColor: theme.border, timeVisible: false },
+    grid: { vertLines: { color: theme.grid }, horzLines: { color: theme.grid } },
   });
   const series = chart.addCandlestickSeries({
     upColor: '#10B981', downColor: '#EF4444',

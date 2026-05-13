@@ -1,0 +1,402 @@
+/* =======================================================================
+   Dashboard journey — observatory-themed analysis page styles.
+   Pairs with /css/cinematic.css and /js/dashboard-journey.js.
+   ======================================================================= */
+
+/* -----------------------------------------------------------------------
+   Critical override — neutralise the .hidden toggle dashboard.js applies
+   to [data-pane] when a tab is clicked. In journey mode, every chapter
+   should remain visible; the tab click becomes a smooth-scroll instead.
+   ----------------------------------------------------------------------- */
+body.journey [data-pane].hidden { display: block !important; }
+
+/* -----------------------------------------------------------------------
+   Top search band
+   ----------------------------------------------------------------------- */
+.dj-search-band {
+  padding: 36px 0 28px;
+  border-bottom: 1px solid var(--c-line);
+  background:
+    linear-gradient(180deg, transparent, rgba(99,102,241,.06) 50%, transparent),
+    transparent;
+  position: relative;
+  isolation: isolate;
+}
+
+.dj-body { padding: 36px 0 80px; }
+
+/* -----------------------------------------------------------------------
+   Placeholder — animated "waiting" state
+   ----------------------------------------------------------------------- */
+.dj-placeholder {
+  position: relative;
+  text-align: center;
+  padding: 80px 24px 100px;
+  isolation: isolate;
+  overflow: hidden;
+}
+.dj-placeholder-orb {
+  position: absolute;
+  left: 50%; top: 10%;
+  transform: translateX(-50%);
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(99,102,241,.35), transparent 60%);
+  filter: blur(40px);
+  z-index: -1;
+  animation: dj-orb-float 6s var(--ease-cinema) infinite alternate;
+}
+@keyframes dj-orb-float {
+  0%   { transform: translate(-50%, 0) scale(1); }
+  100% { transform: translate(-50%, -16px) scale(1.1); }
+}
+.dj-placeholder h2 {
+  font: 400 clamp(32px, 4vw, 52px)/1.05 'DM Serif Display', serif;
+  letter-spacing: -.02em;
+  margin: 0 0 14px;
+  color: var(--c-ink);
+}
+.dj-placeholder p {
+  max-width: 56ch; margin: 0 auto;
+  color: var(--c-mute); font-size: 16px;
+}
+.dj-suggestion-chips {
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+  margin-top: 24px;
+}
+.dj-suggestion-chips button {
+  padding: 9px 16px;
+  font: 700 12px/1 'JetBrains Mono', monospace;
+  letter-spacing: .05em;
+  color: var(--c-ink);
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--c-line);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background var(--t-fast), border-color var(--t-fast), transform var(--t-fast);
+}
+.dj-suggestion-chips button:hover {
+  background: rgba(99,102,241,.14);
+  border-color: rgba(99,102,241,.45);
+  transform: translateY(-1px);
+}
+
+/* -----------------------------------------------------------------------
+   Hero strip (ticker identity)
+   ----------------------------------------------------------------------- */
+.dj-hero {
+  padding: 24px 0 8px;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 24px; flex-wrap: wrap;
+}
+.dj-hero-left { display: flex; flex-direction: column; gap: 10px; }
+.dj-hero-eyebrow {
+  display: inline-flex; align-self: flex-start;
+  font: 600 11px/1 'Manrope', sans-serif;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--c-mute);
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--c-line);
+  background: var(--c-surface-2);
+}
+.dj-hero h1#company-name {
+  margin: 0;
+  font: 400 clamp(36px, 5.5vw, 64px)/1 'DM Serif Display', serif;
+  letter-spacing: -.025em;
+  color: var(--c-ink);
+}
+body.observatory .meta-row {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;
+}
+body.observatory .meta-tag {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font: 600 12px/1 'Manrope', sans-serif;
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-line);
+  color: var(--c-ink-2);
+}
+body.observatory .meta-tag strong { color: var(--c-ink); }
+body.observatory .stance-pill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font: 700 12px/1 'Manrope', sans-serif;
+  border: 1px solid var(--c-line);
+  background: rgba(99,102,241,.14);
+  color: #c7d2fe;
+}
+body.observatory .stance-pill.stance-positive { background: rgba(16,185,129,.16); color: #6ee7b7; border-color: rgba(16,185,129,.35); }
+body.observatory .stance-pill.stance-avoid    { background: rgba(244,63,94,.16); color: #fda4af; border-color: rgba(244,63,94,.35); }
+body.observatory .stance-pill.stance-wait     { background: rgba(245,158,11,.16); color: #fbbf24; border-color: rgba(245,158,11,.35); }
+body.observatory .stance-pill.stance-research { background: rgba(99,102,241,.14); color: #c7d2fe; border-color: rgba(99,102,241,.35); }
+body.observatory .stance-pill.stance-watch    { background: rgba(148,163,184,.14); color: #cbd5e1; border-color: rgba(148,163,184,.30); }
+
+/* -----------------------------------------------------------------------
+   Stats grid — override the legacy `.stats` to a cinematic grid
+   dashboard.js writes inner divs with class="stat" + .stat-label, .stat-value, .stat-sub
+   ----------------------------------------------------------------------- */
+.dj-stats { margin-top: 24px; }
+body.observatory .stats {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+body.observatory .stat {
+  position: relative;
+  padding: 20px 20px 18px;
+  border-radius: var(--rr-md);
+  background: var(--c-glass);
+  border: 1px solid var(--c-line);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  overflow: hidden;
+  transition: transform var(--t-med) var(--ease-cinema), border-color var(--t-med);
+}
+body.observatory .stat:hover {
+  transform: translateY(-3px);
+  border-color: var(--c-line-2);
+}
+body.observatory .stat::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--acc-indigo), var(--acc-mint));
+  opacity: .8;
+}
+body.observatory .stat-label {
+  font: 600 11px/1.2 'Manrope', sans-serif;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--c-mute);
+  margin-bottom: 10px;
+}
+body.observatory .stat-value {
+  font: 700 26px/1 'Manrope', sans-serif;
+  letter-spacing: -.025em;
+  color: var(--c-ink);
+  font-feature-settings: "tnum" 1;
+}
+body.observatory .stat-sub {
+  margin-top: 8px;
+  font-size: 12.5px;
+  color: var(--c-mute);
+}
+body.observatory .stat-sub.stat-up   { color: var(--c-bull); font-weight: 700; }
+body.observatory .stat-sub.stat-down { color: var(--c-bear); font-weight: 700; }
+
+@media (max-width: 1080px) { body.observatory .stats { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px)  { body.observatory .stats { grid-template-columns: repeat(2, 1fr); } }
+
+/* -----------------------------------------------------------------------
+   Stance callout
+   ----------------------------------------------------------------------- */
+.dj-stance {
+  margin-top: 24px;
+  padding: 28px 28px 24px;
+  border-radius: var(--rr-lg);
+  position: relative;
+}
+.dj-stance::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--acc-indigo), var(--acc-mint));
+  border-radius: 3px 0 0 3px;
+}
+.dj-stance-head {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 16px; flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.dj-stance-eyebrow {
+  font: 600 11px/1 'Manrope', sans-serif;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--c-mute);
+}
+.dj-stance h3#stance-pretty {
+  margin: 6px 0 0;
+  font: 700 28px/1.05 'Manrope', sans-serif;
+  letter-spacing: -.02em;
+  color: var(--c-ink);
+}
+.dj-stance-headline { margin-top: 6px; color: var(--c-mute); font-size: 14.5px; }
+.dj-stance-conf { text-align: right; min-width: 140px; }
+.dj-stance-conf-label {
+  font: 600 11px/1 'Manrope', sans-serif;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--c-mute);
+}
+.dj-stance-conf-value {
+  margin-top: 6px;
+  font: 700 18px/1 'JetBrains Mono', monospace;
+  color: var(--c-ink);
+}
+.dj-stance-meaning {
+  margin: 14px 0 0;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--c-surface-2);
+  color: var(--c-ink-2);
+  font-size: 14.5px; line-height: 1.6;
+}
+.dj-stance-toggle {
+  margin-top: 14px;
+  background: none; border: none; cursor: pointer; padding: 6px 0;
+  color: var(--c-accent); font: 700 13px/1 'Manrope', sans-serif;
+  transition: color var(--t-fast);
+}
+.dj-stance-toggle:hover { color: var(--c-ink); }
+
+/* -----------------------------------------------------------------------
+   Chapter helpers
+   ----------------------------------------------------------------------- */
+.cin-chapters-body { min-width: 0; }
+.cin-chapter h4.dj-h4 {
+  margin: 24px 0 10px;
+  font: 700 13px/1 'Manrope', sans-serif;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--c-mute);
+}
+.cin-chapter .dj-pills {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; gap: 8px;
+}
+.cin-chapter .dj-pills li {
+  padding: 12px 14px;
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-line);
+  border-radius: 10px;
+  font-size: 13.5px;
+  color: var(--c-ink-2);
+}
+
+/* -----------------------------------------------------------------------
+   Workflow cards (inside chapter 07)
+   ----------------------------------------------------------------------- */
+body.observatory .workflow { display: grid; gap: 14px; }
+body.observatory .workflow .step { padding: 22px; }
+body.observatory .workflow .step-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+body.observatory .workflow .step-num {
+  display: inline-grid; place-items: center;
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  font: 700 14px/1 'JetBrains Mono', monospace;
+}
+body.observatory .workflow .step h4 {
+  margin: 0;
+  font: 700 18px/1.2 'Manrope', sans-serif;
+  letter-spacing: -.01em;
+}
+body.observatory .workflow .qs {
+  list-style: none; padding-left: 0;
+  display: grid; gap: 6px; margin: 0 0 12px;
+}
+body.observatory .workflow .qs li {
+  padding-left: 22px; position: relative;
+  font-size: 14px;
+}
+body.observatory .workflow .qs li::before {
+  content: '→'; position: absolute; left: 0; top: 0;
+  color: var(--acc-indigo); font-weight: 700;
+}
+
+/* -----------------------------------------------------------------------
+   Summary grid
+   ----------------------------------------------------------------------- */
+body.observatory .summary-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+}
+body.observatory .summary-cell {
+  padding: 18px 18px 14px;
+  border-radius: var(--rr-md);
+}
+body.observatory .summary-cell h5 {
+  margin: 0 0 10px;
+  font: 700 14px/1 'Manrope', sans-serif;
+  color: var(--c-ink);
+}
+body.observatory .summary-cell ul { margin: 0; padding-left: 18px; }
+body.observatory .summary-cell li { font-size: 13.5px; color: var(--c-ink-2); margin-bottom: 4px; }
+
+@media (max-width: 880px) {
+  body.observatory .summary-grid { grid-template-columns: 1fr; }
+}
+
+/* -----------------------------------------------------------------------
+   Health grid (also used in indicators row + 5-verdict ref)
+   ----------------------------------------------------------------------- */
+body.observatory .health-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+}
+body.observatory .health-cell {
+  padding: 18px 18px 16px;
+  border-radius: var(--rr-md);
+}
+body.observatory .health-cell .top {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+body.observatory .health-cell .name {
+  font: 700 14px/1.2 'Manrope', sans-serif;
+}
+body.observatory .health-cell .finding {
+  font-size: 14px; line-height: 1.55; color: var(--c-ink-2);
+}
+body.observatory .health-cell .why {
+  margin-top: 10px; padding-top: 10px;
+  border-top: 1px solid var(--c-line);
+  font-size: 12.5px; color: var(--c-mute);
+}
+
+/* -----------------------------------------------------------------------
+   Event cards
+   ----------------------------------------------------------------------- */
+body.observatory .event-list { display: grid; gap: 10px; }
+body.observatory .event-card { padding: 16px 18px; border-radius: var(--rr-md); }
+body.observatory .event-meta { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; margin-bottom: 6px; }
+body.observatory .event-card h5 { margin: 4px 0 6px; font: 700 14.5px/1.35 'Manrope', sans-serif; }
+body.observatory .event-explain { font-size: 13px; color: var(--c-ink-2); }
+
+/* -----------------------------------------------------------------------
+   Fundamentals table
+   ----------------------------------------------------------------------- */
+body.observatory .fund-table {
+  width: 100%;
+  margin-top: 6px;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+body.observatory .fund-table thead th {
+  text-align: left;
+  padding: 10px 14px;
+  font: 700 11px/1 'Manrope', sans-serif;
+  letter-spacing: .12em; text-transform: uppercase;
+  background: var(--c-surface-2);
+  color: var(--c-mute);
+}
+body.observatory .fund-table thead th:first-child { border-top-left-radius: 10px; }
+body.observatory .fund-table thead th:last-child  { border-top-right-radius: 10px; }
+body.observatory .fund-table tbody td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--c-line);
+}
+body.observatory .fund-table .metric { width: 30%; font-weight: 600; color: var(--c-ink); }
+body.observatory .fund-table .value  { width: 18%; color: var(--c-ink); font-family: 'JetBrains Mono', monospace; font-size: 14px; }
+body.observatory .fund-table .meaning { color: var(--c-mute); font-size: 13.5px; line-height: 1.55; }
+
+/* -----------------------------------------------------------------------
+   Spinner re-color
+   ----------------------------------------------------------------------- */
+body.observatory .spinner {
+  width: 36px; height: 36px;
+  border: 3px solid rgba(255,255,255,.12);
+  border-top-color: var(--acc-indigo);
+  border-radius: 50%;
+  margin: 0 auto;
+  animation: dj-spin 1s linear infinite;
+}
+@keyframes dj-spin { to { transform: rotate(360deg); } }
+
+/* Hide the legacy stance-toggle in the original; we use the new one */
+body.observatory #stance-toggle { display: inline-block; }

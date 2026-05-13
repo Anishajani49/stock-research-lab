@@ -1,0 +1,772 @@
+/* =======================================================================
+   Cinematic foundation — shared across every page.
+   Two coordinated palettes:
+     body.daylight     — warm cream editorial (home, learn, glossary)
+     body.observatory  — deep glass fintech (dashboard, quest, annual-report)
+   All sites pull from the same token names; only values flip.
+   ======================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* Shared accent quartet */
+  --acc-coral:  #ef6f57;
+  --acc-sun:    #f4b73b;
+  --acc-teal:   #0f9d94;
+  --acc-blue:   #3f73d8;
+  --acc-indigo: #6366f1;
+  --acc-mint:   #10b981;
+  --acc-amber:  #f59e0b;
+  --acc-rose:   #f43f5e;
+
+  /* Radii */
+  --rr-sm: 10px;
+  --rr-md: 14px;
+  --rr-lg: 20px;
+  --rr-xl: 28px;
+  --rr-2xl: 36px;
+
+  /* Spacing scale (in addition to existing) */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px;
+  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 80px; --sp-9: 120px;
+
+  /* Motion */
+  --ease-cinema: cubic-bezier(.2, .8, .2, 1);
+  --ease-snap:   cubic-bezier(.16, 1, .3, 1);
+  --t-fast: 160ms;
+  --t-med: 320ms;
+  --t-cinema: 900ms;
+}
+
+/* -----------------------------------------------------------------------
+   Daylight (warm cream) — extends the existing atelier home palette.
+   ----------------------------------------------------------------------- */
+body.daylight {
+  --c-bg:        #fbf8f4;
+  --c-bg-2:      #f5ede0;
+  --c-surface:   #fffdf9;
+  --c-surface-2: rgba(255,253,249,.78);
+  --c-ink:       #1f2a37;
+  --c-ink-2:     #2f3a48;
+  --c-mute:      #6b7280;
+  --c-line:      #e8ddcf;
+  --c-line-2:    rgba(31,42,55,.08);
+  --c-accent:    var(--acc-coral);
+  --c-accent-2:  var(--acc-sun);
+  --c-glass:     rgba(255,255,255,.7);
+  --c-glow:      rgba(239,111,87,.32);
+  --c-bull:      #0f9d94;
+  --c-bear:      #d85a4a;
+  background: var(--c-bg);
+  color: var(--c-ink);
+}
+
+/* -----------------------------------------------------------------------
+   Observatory (deep glass fintech) — analysis pages.
+   ----------------------------------------------------------------------- */
+body.observatory {
+  --c-bg:        #0a0d18;
+  --c-bg-2:      #11172a;
+  --c-bg-3:      #161d33;
+  --c-surface:   rgba(255,255,255,.04);
+  --c-surface-2: rgba(255,255,255,.06);
+  --c-ink:       #e6e9f2;
+  --c-ink-2:     #c2c7d6;
+  --c-mute:      #8a93ad;
+  --c-line:      rgba(255,255,255,.08);
+  --c-line-2:    rgba(255,255,255,.14);
+  --c-accent:    var(--acc-indigo);
+  --c-accent-2:  var(--acc-mint);
+  --c-glass:     rgba(255,255,255,.05);
+  --c-glow:      rgba(99,102,241,.35);
+  --c-bull:      var(--acc-mint);
+  --c-bear:      var(--acc-rose);
+  background:
+    radial-gradient(1200px 700px at 18% -10%, rgba(99,102,241,.18), transparent 60%),
+    radial-gradient(900px 600px at 95% 8%, rgba(16,185,129,.10), transparent 60%),
+    radial-gradient(800px 800px at 50% 110%, rgba(244,114,182,.10), transparent 60%),
+    #0a0d18;
+  color: var(--c-ink);
+}
+
+/* -----------------------------------------------------------------------
+   Ambient layers — sit behind everything, never block clicks.
+   ----------------------------------------------------------------------- */
+.cin-aurora {
+  position: fixed; inset: -10vmax;
+  z-index: -2; pointer-events: none;
+  filter: blur(80px);
+  opacity: .9;
+  background:
+    radial-gradient(40vmax 40vmax at 20% 30%, rgba(99,102,241,.32), transparent 60%),
+    radial-gradient(38vmax 38vmax at 80% 70%, rgba(16,185,129,.22), transparent 60%),
+    radial-gradient(32vmax 32vmax at 50% 100%, rgba(244,114,182,.18), transparent 60%);
+  animation: cin-aurora-float 28s var(--ease-cinema) infinite alternate;
+}
+body.daylight .cin-aurora {
+  opacity: .55;
+  background:
+    radial-gradient(40vmax 40vmax at 20% 30%, rgba(239,111,87,.20), transparent 60%),
+    radial-gradient(38vmax 38vmax at 80% 70%, rgba(244,183,59,.18), transparent 60%),
+    radial-gradient(32vmax 32vmax at 50% 100%, rgba(63,115,216,.14), transparent 60%);
+}
+@keyframes cin-aurora-float {
+  0%   { transform: translate3d(0,0,0) scale(1); }
+  50%  { transform: translate3d(2%, -1.5%, 0) scale(1.06); }
+  100% { transform: translate3d(-1%, 2%, 0) scale(1.02); }
+}
+
+.cin-grid {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(900px 600px at 50% 0%, #000 30%, transparent 75%);
+  opacity: .55;
+}
+body.daylight .cin-grid {
+  background-image:
+    linear-gradient(rgba(31,42,55,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31,42,55,.04) 1px, transparent 1px);
+  opacity: .8;
+}
+
+.cin-noise {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  opacity: .05;
+  background-image: radial-gradient(rgba(255,255,255,.6) .6px, transparent .6px);
+  background-size: 3px 3px;
+}
+body.daylight .cin-noise {
+  opacity: .12;
+  background-image: radial-gradient(rgba(31,42,55,.6) .6px, transparent .6px);
+}
+
+/* -----------------------------------------------------------------------
+   Top nav — glass on both palettes
+   ----------------------------------------------------------------------- */
+body.observatory .nav,
+body.daylight .nav {
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  position: sticky; top: 0; z-index: 50;
+}
+body.observatory .nav.is-scrolled,
+body.daylight .nav.is-scrolled {
+  background: var(--c-glass);
+  border-bottom-color: var(--c-line);
+  backdrop-filter: saturate(160%) blur(18px);
+  -webkit-backdrop-filter: saturate(160%) blur(18px);
+}
+body.observatory .nav-links a {
+  color: var(--c-ink-2);
+  border-radius: 10px;
+  padding: 7px 12px;
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: color var(--t-fast), background var(--t-fast);
+}
+body.observatory .nav-links a:hover,
+body.observatory .nav-links a.active {
+  color: var(--c-ink);
+  background: rgba(255,255,255,.06);
+  text-decoration: none;
+}
+body.observatory .brand { color: var(--c-ink); }
+body.observatory .brand-mark {
+  background: linear-gradient(135deg, var(--acc-indigo), var(--acc-mint));
+  box-shadow: 0 0 18px rgba(99,102,241,.5);
+}
+
+/* -----------------------------------------------------------------------
+   Scroll progress bar
+   ----------------------------------------------------------------------- */
+.cin-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px;
+  z-index: 200; pointer-events: none;
+  background: transparent;
+}
+.cin-progress > i {
+  display: block; height: 100%; width: 0;
+  background: linear-gradient(90deg, var(--acc-coral), var(--acc-sun), var(--acc-teal), var(--acc-blue));
+  box-shadow: 0 0 8px rgba(99,102,241,.55);
+  transition: width 80ms linear;
+}
+
+/* -----------------------------------------------------------------------
+   Reveal-on-scroll (drop-in on any element with [data-cin-reveal])
+   ----------------------------------------------------------------------- */
+[data-cin-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition: opacity 700ms var(--ease-cinema),
+              transform 700ms var(--ease-cinema);
+  will-change: opacity, transform;
+}
+[data-cin-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+[data-cin-reveal][data-cin-reveal="left"]  { transform: translate3d(-22px, 0, 0); }
+[data-cin-reveal][data-cin-reveal="right"] { transform: translate3d(22px, 0, 0); }
+[data-cin-reveal][data-cin-reveal="zoom"]  { transform: scale(.96); }
+
+/* Stagger groups — children inherit delays */
+[data-cin-stagger] > *               { transition-delay: 0ms; }
+[data-cin-stagger] > *:nth-child(2)  { transition-delay: 80ms; }
+[data-cin-stagger] > *:nth-child(3)  { transition-delay: 160ms; }
+[data-cin-stagger] > *:nth-child(4)  { transition-delay: 240ms; }
+[data-cin-stagger] > *:nth-child(5)  { transition-delay: 320ms; }
+[data-cin-stagger] > *:nth-child(6)  { transition-delay: 400ms; }
+[data-cin-stagger] > *:nth-child(7)  { transition-delay: 480ms; }
+
+/* -----------------------------------------------------------------------
+   Glass card — universal premium surface
+   ----------------------------------------------------------------------- */
+.glass {
+  position: relative;
+  background: var(--c-glass);
+  border: 1px solid var(--c-line);
+  border-radius: var(--rr-lg);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  transition: transform var(--t-med) var(--ease-cinema),
+              border-color var(--t-med),
+              box-shadow var(--t-med);
+}
+.glass::before {
+  content: ''; position: absolute; inset: 0;
+  border-radius: inherit; pointer-events: none;
+  background: linear-gradient(135deg, rgba(255,255,255,.07), transparent 40%);
+}
+.glass:hover {
+  transform: translateY(-3px);
+  border-color: var(--c-line-2);
+  box-shadow: 0 24px 60px rgba(0,0,0,.35);
+}
+body.daylight .glass {
+  background: linear-gradient(145deg, rgba(255,255,255,.92), rgba(252,245,236,.85));
+  box-shadow: 0 14px 30px rgba(31,42,55,.08);
+}
+body.daylight .glass:hover { box-shadow: 0 20px 44px rgba(31,42,55,.12); }
+
+/* Glow-on-hover variant */
+.glass.glow:hover {
+  box-shadow: 0 24px 60px rgba(0,0,0,.40),
+              0 0 0 1px var(--c-glow),
+              0 0 30px var(--c-glow);
+}
+
+/* -----------------------------------------------------------------------
+   Magnetic search slab — the "hero moment" input
+   ----------------------------------------------------------------------- */
+.cin-search {
+  position: relative;
+  max-width: 720px;
+  transition: transform var(--t-med) var(--ease-cinema);
+}
+.cin-search .cin-search-inner {
+  position: relative;
+  border-radius: var(--rr-xl);
+  background: var(--c-glass);
+  border: 1px solid var(--c-line);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  transition: box-shadow var(--t-med), border-color var(--t-med), transform var(--t-med);
+}
+.cin-search .cin-search-inner::after {
+  content: ''; position: absolute; inset: -2px;
+  border-radius: inherit; pointer-events: none;
+  background: conic-gradient(from var(--cin-angle, 0deg),
+              var(--acc-coral), var(--acc-sun), var(--acc-teal),
+              var(--acc-blue), var(--acc-indigo), var(--acc-coral));
+  filter: blur(14px);
+  opacity: 0;
+  transition: opacity var(--t-med);
+  z-index: -1;
+}
+.cin-search.is-focused .cin-search-inner {
+  border-color: transparent;
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 1px var(--c-glow),
+    0 24px 60px rgba(0,0,0,.30);
+}
+.cin-search.is-focused .cin-search-inner::after { opacity: .55; }
+@property --cin-angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+.cin-search.is-focused .cin-search-inner {
+  animation: cin-angle-spin 8s linear infinite;
+}
+@keyframes cin-angle-spin {
+  from { --cin-angle: 0deg; }
+  to   { --cin-angle: 360deg; }
+}
+
+.cin-search input {
+  width: 100%;
+  height: 72px;
+  padding: 0 160px 0 28px;
+  border: none;
+  background: transparent;
+  font: 500 18px/1.4 'Manrope', system-ui, sans-serif;
+  color: var(--c-ink);
+  outline: none;
+  letter-spacing: -.01em;
+}
+.cin-search input::placeholder { color: var(--c-mute); }
+.cin-search .cin-search-go {
+  position: absolute; right: 8px; top: 8px;
+  height: 56px; padding: 0 22px;
+  border: none; cursor: pointer;
+  border-radius: calc(var(--rr-xl) - 8px);
+  background: linear-gradient(120deg, var(--acc-indigo), var(--acc-mint));
+  color: #fff;
+  font: 700 14px/1 'Manrope', sans-serif;
+  letter-spacing: .02em;
+  box-shadow: 0 10px 22px rgba(99,102,241,.4);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+.cin-search .cin-search-go:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(99,102,241,.55);
+}
+body.daylight .cin-search .cin-search-go {
+  background: linear-gradient(120deg, var(--acc-coral), #db4b8e);
+  box-shadow: 0 10px 22px rgba(239,111,87,.35);
+}
+
+.cin-search .cin-search-suggestions {
+  position: absolute; top: calc(100% + 12px); left: 0; right: 0;
+  background: var(--c-bg-2, var(--c-surface));
+  border: 1px solid var(--c-line);
+  border-radius: var(--rr-lg);
+  box-shadow: 0 24px 60px rgba(0,0,0,.30);
+  backdrop-filter: blur(18px);
+  max-height: 380px; overflow-y: auto;
+  display: none; z-index: 30;
+}
+.cin-search .cin-search-suggestions.is-open { display: block; }
+.cin-search .cin-search-suggestions .suggestion {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--c-line);
+  cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  transition: background var(--t-fast);
+}
+.cin-search .cin-search-suggestions .suggestion:last-child { border-bottom: none; }
+.cin-search .cin-search-suggestions .suggestion:hover { background: var(--c-surface-2); }
+.cin-search .cin-search-suggestions .suggestion-symbol { font-weight: 700; color: var(--c-ink); }
+.cin-search .cin-search-suggestions .suggestion-name   { font-size: 13px; color: var(--c-mute); }
+.cin-search .cin-search-suggestions .suggestion-exch   {
+  font-size: 11px; padding: 3px 9px;
+  background: var(--c-surface-2); border-radius: 999px; color: var(--c-mute); font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .cin-search input { height: 60px; font-size: 16px; padding: 0 110px 0 18px; }
+  .cin-search .cin-search-go { height: 44px; right: 8px; top: 8px; padding: 0 14px; font-size: 13px; }
+}
+
+/* -----------------------------------------------------------------------
+   Parallax layers — managed by JS, positioned absolutely
+   ----------------------------------------------------------------------- */
+.cin-parallax {
+  position: relative;
+  overflow: hidden;
+}
+.cin-layer {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+.cin-layer img,
+.cin-layer svg { width: 100%; height: 100%; display: block; }
+
+/* -----------------------------------------------------------------------
+   Sticky-scale (zoom into a stock)
+   ----------------------------------------------------------------------- */
+.cin-sticky-scale {
+  position: relative;
+  height: 220vh;
+}
+.cin-sticky-scale .cin-sticky-inner {
+  position: sticky; top: 0;
+  height: 100vh;
+  display: grid; place-items: center;
+  overflow: hidden;
+}
+.cin-sticky-scale .cin-sticky-target {
+  width: clamp(280px, 42vw, 640px);
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+  transition: transform 60ms linear;
+}
+
+/* -----------------------------------------------------------------------
+   Animated metric card
+   ----------------------------------------------------------------------- */
+.cin-metric {
+  position: relative;
+  padding: 22px 22px 20px;
+  border-radius: var(--rr-md);
+  background: var(--c-glass);
+  border: 1px solid var(--c-line);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  overflow: hidden;
+  transition: transform var(--t-med) var(--ease-cinema), border-color var(--t-med);
+}
+.cin-metric:hover {
+  transform: translateY(-3px);
+  border-color: var(--c-line-2);
+}
+.cin-metric::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--acc-indigo), var(--acc-mint));
+  opacity: .85;
+}
+.cin-metric.is-bull::before { background: linear-gradient(180deg, var(--acc-mint), #34d399); }
+.cin-metric.is-bear::before { background: linear-gradient(180deg, var(--acc-rose), #ff6b8a); }
+.cin-metric.is-warn::before { background: linear-gradient(180deg, var(--acc-amber), #fbbf24); }
+.cin-metric .cin-metric-label {
+  font: 600 11px/1.2 'Manrope', sans-serif;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--c-mute);
+  margin-bottom: 10px;
+}
+.cin-metric .cin-metric-value {
+  font: 700 30px/1 'Manrope', sans-serif;
+  letter-spacing: -.025em;
+  color: var(--c-ink);
+  font-feature-settings: "tnum" 1;
+}
+.cin-metric .cin-metric-sub {
+  margin-top: 8px;
+  font-size: 12.5px;
+  color: var(--c-mute);
+}
+.cin-metric .cin-metric-sub.up   { color: var(--c-bull); font-weight: 600; }
+.cin-metric .cin-metric-sub.down { color: var(--c-bear); font-weight: 600; }
+
+/* -----------------------------------------------------------------------
+   Chapter / journey scaffold (used by dashboard scroll-journey)
+   ----------------------------------------------------------------------- */
+.cin-chapters {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 48px;
+  align-items: start;
+  margin-top: 32px;
+}
+.cin-chapters-nav {
+  position: sticky; top: 88px;
+  align-self: start;
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 16px;
+  border-radius: var(--rr-lg);
+  background: var(--c-glass);
+  border: 1px solid var(--c-line);
+  backdrop-filter: blur(18px);
+}
+.cin-chapters-nav .cin-chap {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font: 600 13px/1.3 'Manrope', sans-serif;
+  color: var(--c-mute);
+  cursor: pointer;
+  border: none; background: transparent; text-align: left;
+  transition: background var(--t-fast), color var(--t-fast);
+}
+.cin-chapters-nav .cin-chap:hover { color: var(--c-ink); background: var(--c-surface-2); }
+.cin-chapters-nav .cin-chap.is-active { color: var(--c-ink); background: var(--c-surface-2); }
+.cin-chapters-nav .cin-chap .cin-chap-num {
+  display: inline-grid; place-items: center;
+  width: 24px; height: 24px;
+  border-radius: 7px;
+  font: 700 11px/1 'JetBrains Mono', monospace;
+  background: var(--c-bg-2, rgba(255,255,255,.06));
+  color: var(--c-ink);
+}
+.cin-chapters-nav .cin-chap.is-active .cin-chap-num {
+  background: linear-gradient(135deg, var(--acc-indigo), var(--acc-mint));
+  color: #fff;
+}
+
+.cin-chapter {
+  scroll-margin-top: 90px;
+  padding: 60px 0;
+  border-top: 1px solid var(--c-line);
+}
+.cin-chapter:first-child { border-top: none; padding-top: 24px; }
+.cin-chapter-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 600 11px/1 'Manrope', sans-serif;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--c-mute);
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--c-line);
+  background: var(--c-surface-2);
+  margin-bottom: 16px;
+}
+.cin-chapter h2 {
+  font: 700 clamp(28px, 3.4vw, 44px)/1.05 'DM Serif Display', serif;
+  letter-spacing: -.02em;
+  margin: 0 0 12px;
+  color: var(--c-ink);
+}
+.cin-chapter > p.lead {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--c-mute);
+  max-width: 64ch;
+  margin: 0 0 24px;
+}
+
+@media (max-width: 980px) {
+  .cin-chapters { grid-template-columns: 1fr; gap: 24px; }
+  .cin-chapters-nav {
+    position: sticky; top: 60px;
+    flex-direction: row; overflow-x: auto;
+    gap: 4px; padding: 8px;
+  }
+  .cin-chapters-nav .cin-chap { white-space: nowrap; }
+}
+
+/* -----------------------------------------------------------------------
+   Observatory overrides for legacy styles.css components.
+   ----------------------------------------------------------------------- */
+body.observatory .card {
+  background: var(--c-glass);
+  border: 1px solid var(--c-line);
+  border-radius: var(--rr-lg);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  color: var(--c-ink);
+  box-shadow: 0 14px 40px rgba(0,0,0,.25);
+}
+body.observatory .card h3,
+body.observatory .card h4,
+body.observatory .card h5 { color: var(--c-ink); }
+body.observatory .muted,
+body.observatory .card-sub { color: var(--c-mute); }
+body.observatory .surface-2,
+body.observatory [style*="--surface-2"] { background: var(--c-bg-2) !important; }
+
+body.observatory .stat {
+  background: var(--c-glass);
+  border: 1px solid var(--c-line);
+  color: var(--c-ink);
+}
+body.observatory .stat-label { color: var(--c-mute); }
+body.observatory .stat-value { color: var(--c-ink); }
+body.observatory .stat-up    { color: var(--c-bull); }
+body.observatory .stat-down  { color: var(--c-bear); }
+
+body.observatory .meta-tag {
+  background: var(--c-surface-2);
+  color: var(--c-ink-2);
+  border: 1px solid var(--c-line);
+}
+body.observatory .stance-pill {
+  background: var(--c-surface-2);
+  color: var(--c-ink);
+  border: 1px solid var(--c-line);
+}
+
+body.observatory .health-cell {
+  background: var(--c-glass);
+  border: 1px solid var(--c-line);
+  color: var(--c-ink);
+}
+body.observatory .health-cell .name,
+body.observatory .health-cell .top { color: var(--c-ink); }
+body.observatory .health-cell .finding { color: var(--c-ink-2); }
+body.observatory .health-cell .why { color: var(--c-mute); }
+
+body.observatory .badge { background: var(--c-surface-2); color: var(--c-ink); border: 1px solid var(--c-line); }
+body.observatory .badge-strong   { background: rgba(16,185,129,.16); color: #6ee7b7; border-color: rgba(16,185,129,.35); }
+body.observatory .badge-moderate { background: rgba(245,158,11,.16); color: #fbbf24; border-color: rgba(245,158,11,.35); }
+body.observatory .badge-weak,
+body.observatory .badge-needs    { background: rgba(244,63,94,.16); color: #fda4af; border-color: rgba(244,63,94,.35); }
+body.observatory .badge-na       { background: rgba(148,163,184,.14); color: #cbd5e1; border-color: rgba(148,163,184,.30); }
+
+body.observatory .event-card {
+  background: var(--c-glass);
+  border: 1px solid var(--c-line);
+  color: var(--c-ink);
+}
+body.observatory .event-card.positive { border-left: 3px solid var(--acc-mint); }
+body.observatory .event-card.negative { border-left: 3px solid var(--acc-rose); }
+body.observatory .event-card.neutral  { border-left: 3px solid var(--c-line-2); }
+body.observatory .event-meta { color: var(--c-mute); }
+body.observatory .event-explain { color: var(--c-ink-2); }
+body.observatory .event-card h5 { color: var(--c-ink); }
+
+body.observatory .fund-table { border-collapse: separate; border-spacing: 0; width: 100%; }
+body.observatory .fund-table th,
+body.observatory .fund-table td {
+  border-bottom: 1px solid var(--c-line);
+  color: var(--c-ink-2);
+}
+body.observatory .fund-table th { color: var(--c-mute); font-weight: 600; }
+body.observatory .fund-table .metric { color: var(--c-ink); font-weight: 600; }
+body.observatory .fund-table .value  { color: var(--c-ink); font-family: 'JetBrains Mono', monospace; }
+body.observatory .fund-table .meaning { color: var(--c-mute); font-size: 13px; }
+
+body.observatory .summary-cell {
+  background: var(--c-glass);
+  border: 1px solid var(--c-line);
+}
+body.observatory .summary-cell.good   { border-left: 3px solid var(--acc-mint); }
+body.observatory .summary-cell.risky  { border-left: 3px solid var(--acc-rose); }
+body.observatory .summary-cell.research { border-left: 3px solid var(--acc-indigo); }
+
+body.observatory .step {
+  background: var(--c-glass);
+  border: 1px solid var(--c-line);
+  border-radius: var(--rr-md);
+}
+body.observatory .step h4 { color: var(--c-ink); }
+body.observatory .step .step-num {
+  background: linear-gradient(135deg, var(--acc-indigo), var(--acc-mint));
+  color: #fff;
+}
+body.observatory .step .qs li { color: var(--c-ink-2); }
+body.observatory .step .obs   { background: var(--c-surface-2); color: var(--c-ink); border-radius: 8px; padding: 10px 12px; }
+body.observatory .step .tip   { background: rgba(99,102,241,.10); color: #c7d2fe; border-radius: 8px; padding: 8px 12px; margin-top: 8px; }
+
+body.observatory .disclaimer { background: rgba(255,255,255,.02); border-top: 1px solid var(--c-line); color: var(--c-mute); }
+
+/* Spinner */
+body.observatory .spinner {
+  border-color: rgba(255,255,255,.12);
+  border-top-color: var(--acc-indigo);
+}
+
+/* -----------------------------------------------------------------------
+   Daylight legacy-card overrides — keep warm cream tone
+   ----------------------------------------------------------------------- */
+body.daylight .card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--rr-lg);
+  color: var(--c-ink);
+}
+
+/* -----------------------------------------------------------------------
+   Section heading helper
+   ----------------------------------------------------------------------- */
+.cin-section-head {
+  display: flex; flex-direction: column; gap: 10px;
+  max-width: 720px;
+  margin-bottom: 32px;
+}
+.cin-section-head .cin-eyebrow {
+  display: inline-flex; align-self: flex-start; gap: 8px;
+  align-items: center;
+  font: 600 11px/1 'Manrope', sans-serif;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--c-mute);
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--c-line);
+  background: var(--c-surface-2);
+}
+.cin-section-head h2 {
+  font: 700 clamp(32px, 4.5vw, 56px)/1.05 'DM Serif Display', serif;
+  letter-spacing: -.02em;
+  margin: 0;
+  color: var(--c-ink);
+}
+.cin-section-head h2 em { font-style: italic; color: var(--c-accent); }
+.cin-section-head p {
+  font-size: 17px; line-height: 1.6;
+  color: var(--c-mute); margin: 0;
+}
+
+/* -----------------------------------------------------------------------
+   Shared "page hero" — used by learn / glossary / annual-report / quest
+   ----------------------------------------------------------------------- */
+.cin-page-hero {
+  padding: 80px 0 40px;
+  position: relative;
+  isolation: isolate;
+}
+.cin-page-hero .cin-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 600 11px/1 'Manrope', sans-serif;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--c-mute);
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--c-line);
+  background: var(--c-surface-2);
+  margin-bottom: 18px;
+}
+.cin-page-title {
+  font: 400 clamp(40px, 6vw, 76px)/1 'DM Serif Display', Georgia, serif;
+  letter-spacing: -.03em;
+  margin: 0 0 16px;
+  color: var(--c-ink);
+}
+.cin-page-title em {
+  font-style: italic;
+  background: linear-gradient(120deg, var(--acc-coral), var(--acc-sun) 40%, var(--acc-mint) 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+body.observatory .cin-page-title {
+  background: linear-gradient(180deg, #ffffff 35%, rgba(255,255,255,.65));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+body.observatory .cin-page-title em {
+  background: linear-gradient(120deg, var(--acc-coral), var(--acc-sun) 40%, var(--acc-mint) 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cin-page-lead {
+  font: 400 clamp(15px, 1.3vw, 18px)/1.6 'Manrope', sans-serif;
+  color: var(--c-mute);
+  max-width: 64ch;
+  margin: 0;
+}
+
+/* -----------------------------------------------------------------------
+   Daylight palette overrides for legacy `.card`, badges, pattern grid
+   ----------------------------------------------------------------------- */
+body.daylight .card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-line);
+  border-radius: var(--rr-lg);
+  box-shadow: 0 14px 30px rgba(31,42,55,.06);
+  transition: transform var(--t-med) var(--ease-cinema), box-shadow var(--t-med);
+}
+body.daylight .card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 50px rgba(31,42,55,.10);
+}
+body.daylight .hero-eyebrow,
+body.daylight .nav { background: transparent; }
+
+/* -----------------------------------------------------------------------
+   Reduced-motion killswitch
+   ----------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-cin-reveal] { opacity: 1 !important; transform: none !important; }
+  .cin-aurora { animation: none !important; }
+}

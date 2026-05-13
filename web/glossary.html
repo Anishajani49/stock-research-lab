@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Finance Dictionary — Stock Research Lab</title>
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/cinematic.css" />
 </head>
-<body>
+<body class="daylight">
+  <div class="cin-aurora"></div>
+  <div class="cin-grid"></div>
+  <div class="cin-noise"></div>
   <nav class="nav">
     <div class="container nav-inner">
       <a class="brand" href="/"><span class="brand-mark"></span><span>Stock Research Lab</span></a>
@@ -21,11 +25,11 @@
     </div>
   </nav>
 
-  <header class="hero" style="padding: 56px 0 16px;">
+  <header class="cin-page-hero" data-cin-reveal>
     <div class="container">
-      <span class="hero-eyebrow">Beginner Glossary</span>
-      <h1 style="font-size: 32px;">Finance terms, <span class="accent">decoded.</span></h1>
-      <p class="lead" style="font-size: 16px;">
+      <span class="cin-eyebrow">Finance dictionary · Plain English</span>
+      <h1 class="cin-page-title">Finance terms, <em>decoded.</em></h1>
+      <p class="cin-page-lead">
         Every term in plain English plus the practical reason a beginner should care.
         Search by term, alias, or category.
       </p>
@@ -57,6 +61,7 @@
   </footer>
 
   <script src="/js/api.js"></script>
+  <script src="/js/cinematic.js"></script>
   <script src="/js/glossary.js"></script>
 </body>
 </html>

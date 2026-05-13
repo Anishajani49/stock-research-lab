@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Candlestick Learning — Stock Research Lab</title>
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/cinematic.css" />
 </head>
-<body>
+<body class="daylight">
+  <div class="cin-aurora"></div>
+  <div class="cin-grid"></div>
+  <div class="cin-noise"></div>
   <nav class="nav">
     <div class="container nav-inner">
       <a class="brand" href="/"><span class="brand-mark"></span><span>Stock Research Lab</span></a>
@@ -21,11 +25,11 @@
     </div>
   </nav>
 
-  <header class="hero" style="padding: 56px 0 32px;">
+  <header class="cin-page-hero" data-cin-reveal>
     <div class="container">
-      <span class="hero-eyebrow">Hands-on Lesson</span>
-      <h1 style="font-size: 36px;">Read a candlestick chart <span class="accent">step by step.</span></h1>
-      <p class="lead" style="font-size: 16px;">
+      <span class="cin-eyebrow">Candlestick lab · Hands-on lesson</span>
+      <h1 class="cin-page-title">Read a candlestick chart <em>step by step.</em></h1>
+      <p class="cin-page-lead">
         Learn what each candle is telling you, plus the textbook patterns
         professionals look for. Click any pattern card to see the explanation.
       </p>
@@ -124,6 +128,7 @@
   </footer>
 
   <script src="/js/api.js"></script>
+  <script src="/js/cinematic.js"></script>
   <script src="/js/learn.js"></script>
 </body>
 </html>

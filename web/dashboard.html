@@ -5,9 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Stock Analysis — Stock Research Lab</title>
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/cinematic.css" />
+  <link rel="stylesheet" href="/css/dashboard-journey.css" />
   <script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
 </head>
-<body>
+<body class="observatory journey">
+  <div class="cin-aurora"></div>
+  <div class="cin-grid"></div>
+  <div class="cin-noise"></div>
+
   <nav class="nav">
     <div class="container nav-inner">
       <a class="brand" href="/"><span class="brand-mark"></span><span>Stock Research Lab</span></a>
@@ -22,189 +28,258 @@
     </div>
   </nav>
 
-  <!-- Compact search bar at top of dashboard -->
-  <div class="dash-header">
+  <!-- =================================================================
+       Top search bar — premium glass
+       ================================================================= -->
+  <section class="dj-search-band">
     <div class="container">
-      <div class="search-box" style="max-width: 100%; margin: 0;">
-        <input id="search-input" class="search-input" type="text"
-          placeholder="Search a ticker (e.g. RELIANCE, TCS) — press Enter to analyze"
-          autocomplete="off" spellcheck="false" />
-        <button id="search-go" class="search-go">Analyze →</button>
-        <div id="search-suggestions" class="search-suggestions"></div>
+      <div class="cin-search" data-cin-reveal>
+        <div class="cin-search-inner">
+          <input id="search-input" type="text"
+                 placeholder="Search a ticker — RELIANCE, TCS, INFY, HDFCBANK"
+                 autocomplete="off" spellcheck="false" />
+          <button id="search-go" class="cin-search-go">Analyze →</button>
+          <div id="search-suggestions" class="cin-search-suggestions"></div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="container">
+  <div class="container dj-body">
+
+    <!-- Loader / placeholder / error -->
     <div id="loader" class="empty hidden">
       <div class="spinner"></div>
-      <div style="margin-top: 12px;">Fetching market data, fundamentals, news, and the analyst workflow…</div>
+      <div style="margin-top: 14px; color: var(--c-ink-2);">Fetching market data, fundamentals, news, and the analyst workflow…</div>
     </div>
 
-    <div id="placeholder" class="empty">
-      Type a ticker above and press Enter — for example
-      <strong>RELIANCE</strong>, <strong>TCS</strong>, <strong>INFY</strong>, or <strong>ITC</strong>.
+    <div id="placeholder" class="dj-placeholder">
+      <div class="dj-placeholder-orb"></div>
+      <h2>Type a ticker above to begin.</h2>
+      <p>The platform will pull live data and walk you through a professional analysis &mdash; one chapter at a time.</p>
+      <div class="dj-suggestion-chips">
+        <button data-ticker="RELIANCE">RELIANCE</button>
+        <button data-ticker="TCS">TCS</button>
+        <button data-ticker="INFY">INFY</button>
+        <button data-ticker="HDFCBANK">HDFCBANK</button>
+        <button data-ticker="ITC">ITC</button>
+      </div>
     </div>
 
-    <div id="error" class="empty hidden" style="color: var(--bear);"></div>
+    <div id="error" class="empty hidden" style="color: var(--acc-rose);"></div>
 
     <main id="dash" class="hidden">
-      <!-- Header strip -->
-      <header class="dash-header" style="border:none; padding: 24px 0 8px;">
-        <h1 id="company-name">—</h1>
-        <div class="meta-row" id="meta-row"></div>
+
+      <!-- ============================================================
+           Hero strip — ticker identity
+           ============================================================ -->
+      <header class="dj-hero" data-cin-reveal>
+        <div class="dj-hero-left">
+          <span class="dj-hero-eyebrow">Educational analysis · Indian markets</span>
+          <h1 id="company-name">—</h1>
+          <div class="meta-row" id="meta-row"></div>
+        </div>
       </header>
 
-      <!-- Headline stats -->
-      <section class="stats" id="stats"></section>
+      <!-- ============================================================
+           Headline stats grid (cin-metric cards)
+           Populated by dashboard.js -> innerHTML on #stats
+           ============================================================ -->
+      <section class="dj-stats" data-cin-reveal>
+        <div class="stats" id="stats"></div>
+      </section>
 
-      <!-- Stance explanation callout — visible across all tabs -->
-      <section id="stance-callout" class="card" style="border-color: var(--accent); box-shadow: var(--shadow-md); margin-bottom: 18px;">
-        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 8px;">
+      <!-- ============================================================
+           Stance callout — verdict
+           ============================================================ -->
+      <section id="stance-callout" class="dj-stance glass" data-cin-reveal>
+        <div class="dj-stance-head">
           <div>
-            <div class="muted" style="font-size: 12px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600;">Educational verdict</div>
-            <h3 id="stance-pretty" style="margin: 4px 0 0; font-size: 22px;">—</h3>
-            <div id="stance-headline" class="muted" style="margin-top: 4px;">—</div>
+            <div class="dj-stance-eyebrow">Educational verdict</div>
+            <h3 id="stance-pretty">—</h3>
+            <div id="stance-headline" class="dj-stance-headline">—</div>
           </div>
-          <div style="text-align: right;">
-            <div class="muted" style="font-size: 12px;">Confidence</div>
-            <div id="stance-confidence" style="font-weight: 600;">—</div>
+          <div class="dj-stance-conf">
+            <div class="dj-stance-conf-label">Confidence</div>
+            <div id="stance-confidence" class="dj-stance-conf-value">—</div>
           </div>
         </div>
-        <p id="stance-meaning" class="muted" style="font-size: 14px; line-height: 1.65; margin: 12px 0 0; padding: 12px 14px; background: var(--surface-2); border-radius: var(--r-sm);">—</p>
-        <button id="stance-toggle" class="tab" style="margin-top: 12px; padding: 6px 0; color: var(--accent); font-weight: 600;">▼ Show the logic behind this verdict</button>
+        <p id="stance-meaning" class="dj-stance-meaning">—</p>
+        <button id="stance-toggle" class="dj-stance-toggle">▼ Show the logic behind this verdict</button>
       </section>
 
-      <!-- Tabs -->
-      <nav class="tabs" id="tabs">
-        <button class="tab active" data-tab="overview">Overview</button>
-        <button class="tab" data-tab="why">Why this view?</button>
-        <button class="tab" data-tab="fundamentals">Fundamentals</button>
-        <button class="tab" data-tab="health">Health Score</button>
-        <button class="tab" data-tab="chart">Price &amp; Chart</button>
-        <button class="tab" data-tab="news">News &amp; Events</button>
-        <button class="tab" data-tab="workflow">How Pros Think</button>
-        <button class="tab" data-tab="summary">Beginner Summary</button>
-      </nav>
+      <!-- ============================================================
+           SCROLL JOURNEY — chapter nav + content
+           Chapter nav doubles as #tabs (preserves dashboard.js wiring)
+           ============================================================ -->
+      <div class="cin-chapters">
+        <nav id="tabs" class="cin-chapters-nav">
+          <button class="tab cin-chap is-active" data-tab="overview">
+            <span class="cin-chap-num">01</span> Overview
+          </button>
+          <button class="tab cin-chap" data-tab="why">
+            <span class="cin-chap-num">02</span> Why this view
+          </button>
+          <button class="tab cin-chap" data-tab="fundamentals">
+            <span class="cin-chap-num">03</span> Fundamentals
+          </button>
+          <button class="tab cin-chap" data-tab="health">
+            <span class="cin-chap-num">04</span> Health Score
+          </button>
+          <button class="tab cin-chap" data-tab="chart">
+            <span class="cin-chap-num">05</span> Chart
+          </button>
+          <button class="tab cin-chap" data-tab="news">
+            <span class="cin-chap-num">06</span> News &amp; Events
+          </button>
+          <button class="tab cin-chap" data-tab="workflow">
+            <span class="cin-chap-num">07</span> Pro Workflow
+          </button>
+          <button class="tab cin-chap" data-tab="summary">
+            <span class="cin-chap-num">08</span> Takeaway
+          </button>
+        </nav>
 
-      <!-- A. Overview / Snapshot -->
-      <section data-pane="overview">
-        <div class="card">
-          <h3>🏢 What this company does</h3>
-          <p id="biz-desc" class="muted">—</p>
+        <div class="cin-chapters-body">
+
+          <!-- ── Chapter 01: Overview ───────────────────────────── -->
+          <article class="cin-chapter" id="chap-overview">
+            <span class="cin-chapter-eyebrow">Chapter 01 · Overview</span>
+            <h2>What does this company actually do?</h2>
+            <p class="lead">Before any spreadsheet opens, decode the business in plain language. If you can't explain who pays them and why, you don't own the thesis yet.</p>
+            <section data-pane="overview">
+              <div class="card">
+                <h3>🏢 What this company does</h3>
+                <p id="biz-desc" class="muted">—</p>
+              </div>
+            </section>
+          </article>
+
+          <!-- ── Chapter 02: Why this view ──────────────────────── -->
+          <article class="cin-chapter" id="chap-why">
+            <span class="cin-chapter-eyebrow">Chapter 02 · The reasoning</span>
+            <h2>Why this verdict — line by line.</h2>
+            <p class="lead">The verdict comes from a <strong>deterministic rules engine</strong>, not the AI. Here are the rules that fired, the points the engine collected, and exactly what would change this view.</p>
+            <section data-pane="why">
+              <div class="card">
+                <h3>🧭 Why did the system pick this verdict?</h3>
+
+                <h4 class="dj-h4">📋 Rules the engine fired</h4>
+                <div id="why-rules" class="event-list"></div>
+
+                <h4 class="dj-h4">🔄 What would change this view</h4>
+                <ul id="why-changes" class="dj-pills"></ul>
+
+                <h4 class="dj-h4">⚖️ Points the engine collected</h4>
+                <div class="summary-grid">
+                  <div class="summary-cell good">
+                    <h5>🟢 Bullish points found</h5>
+                    <ul id="why-bull"></ul>
+                  </div>
+                  <div class="summary-cell risky">
+                    <h5>🔴 Bearish points found</h5>
+                    <ul id="why-bear"></ul>
+                  </div>
+                </div>
+
+                <h4 class="dj-h4">📖 The five possible verdicts</h4>
+                <div id="why-definitions" class="health-grid"></div>
+              </div>
+            </section>
+          </article>
+
+          <!-- ── Chapter 03: Fundamentals ───────────────────────── -->
+          <article class="cin-chapter" id="chap-fundamentals">
+            <span class="cin-chapter-eyebrow">Chapter 03 · Fundamentals</span>
+            <h2>The numbers — <em>decoded.</em></h2>
+            <p class="lead">Thirteen metrics, each with a plain-English meaning. The same data Zerodha and Groww show on a stock's page, but with the "so what?" attached.</p>
+            <section data-pane="fundamentals">
+              <div class="card">
+                <h3>📊 Key fundamentals</h3>
+                <table class="fund-table">
+                  <thead><tr><th>Metric</th><th>Value</th><th>What it means for a beginner</th></tr></thead>
+                  <tbody id="fund-body"></tbody>
+                </table>
+              </div>
+            </section>
+          </article>
+
+          <!-- ── Chapter 04: Health Score ───────────────────────── -->
+          <article class="cin-chapter" id="chap-health">
+            <span class="cin-chapter-eyebrow">Chapter 04 · Health Score</span>
+            <h2>Seven dimensions of company health.</h2>
+            <p class="lead">Not buy/sell advice &mdash; a structured map of where the company looks strong, weak, or worth a closer look. This is the lens a professional uses before forming any view.</p>
+            <section data-pane="health">
+              <div class="card">
+                <h3>🎯 Educational health scorecard</h3>
+                <div id="health-grid" class="health-grid"></div>
+              </div>
+            </section>
+          </article>
+
+          <!-- ── Chapter 05: Chart ──────────────────────────────── -->
+          <article class="cin-chapter" id="chap-chart">
+            <span class="cin-chapter-eyebrow">Chapter 05 · Price &amp; chart</span>
+            <h2>Trend, momentum, volatility.</h2>
+            <p class="lead">Patterns are clues, not commands. Read the chart in context &mdash; trend, RSI, MACD, ATR, volume &mdash; with translations next to every number.</p>
+            <section data-pane="chart">
+              <div class="card">
+                <h3>📈 Price &amp; trend</h3>
+                <div class="card-sub" id="trend-narrative">—</div>
+                <div id="chart-container" style="width: 100%; height: 420px;"></div>
+              </div>
+              <div class="card" style="margin-top: 16px;">
+                <h3>Technical indicators (with translations)</h3>
+                <div id="indicators-rows" class="health-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));"></div>
+              </div>
+            </section>
+          </article>
+
+          <!-- ── Chapter 06: News & Events ──────────────────────── -->
+          <article class="cin-chapter" id="chap-news">
+            <span class="cin-chapter-eyebrow">Chapter 06 · News &amp; events</span>
+            <h2>Signal &mdash; <em>separated from noise.</em></h2>
+            <p class="lead">Forward-looking events first, then recent news categorised and scored. Not every headline deserves equal weight.</p>
+            <section data-pane="news">
+              <div class="card">
+                <h3>📅 Upcoming events</h3>
+                <div id="upcoming-events" class="event-list"></div>
+              </div>
+              <div class="card" style="margin-top: 16px;">
+                <h3>📰 Recent news &amp; what it might mean</h3>
+                <div id="news-list" class="event-list"></div>
+              </div>
+            </section>
+          </article>
+
+          <!-- ── Chapter 07: Workflow ───────────────────────────── -->
+          <article class="cin-chapter" id="chap-workflow">
+            <span class="cin-chapter-eyebrow">Chapter 07 · Pro workflow</span>
+            <h2>How a professional reads <em>this</em> stock.</h2>
+            <p class="lead">Eight structured steps. Each step lists the questions a professional asks &mdash; and shows what those questions reveal using this ticker's actual data.</p>
+            <section data-pane="workflow">
+              <div class="card">
+                <h3>🧠 The eight-step thinking pattern</h3>
+                <div id="workflow" class="workflow"></div>
+              </div>
+            </section>
+          </article>
+
+          <!-- ── Chapter 08: Takeaway ───────────────────────────── -->
+          <article class="cin-chapter" id="chap-summary">
+            <span class="cin-chapter-eyebrow">Chapter 08 · Beginner takeaway</span>
+            <h2>What you should study next.</h2>
+            <p class="lead">Three buckets &mdash; what looks good, what looks risky, what needs more research &mdash; plus the beginner lesson buried in this case.</p>
+            <section data-pane="summary">
+              <div class="card">
+                <h3>🎓 Beginner learning summary</h3>
+                <div id="summary-body"></div>
+              </div>
+            </section>
+          </article>
+
         </div>
-      </section>
-
-      <!-- Why this view? -->
-      <section data-pane="why" class="hidden">
-        <div class="card">
-          <h3>🧭 Why did the system pick this verdict?</h3>
-          <div class="card-sub" style="margin-bottom: 14px;">
-            The verdict is decided by a <strong>deterministic rules engine</strong> — not a guess
-            and not the AI. Below: the exact rules that fired, what would change the view,
-            and a reference of all five possible verdicts.
-          </div>
-
-          <h4 style="font-size: 14px; margin: 16px 0 8px;">📋 Rules the engine fired</h4>
-          <div id="why-rules" class="event-list"></div>
-
-          <h4 style="font-size: 14px; margin: 22px 0 8px;">🔄 What would change this view</h4>
-          <ul id="why-changes" class="qs" style="padding-left: 0; list-style: none; display: grid; gap: 6px;"></ul>
-
-          <h4 style="font-size: 14px; margin: 22px 0 8px;">⚖️ Points the engine collected</h4>
-          <div class="summary-grid">
-            <div class="summary-cell good">
-              <h5>🟢 Bullish points found</h5>
-              <ul id="why-bull"></ul>
-            </div>
-            <div class="summary-cell risky">
-              <h5>🔴 Bearish points found</h5>
-              <ul id="why-bear"></ul>
-            </div>
-          </div>
-
-          <h4 style="font-size: 14px; margin: 22px 0 8px;">📖 The five possible verdicts</h4>
-          <div id="why-definitions" class="health-grid"></div>
-        </div>
-      </section>
-
-      <!-- B. Fundamentals -->
-      <section data-pane="fundamentals" class="hidden">
-        <div class="card">
-          <h3>📊 Key fundamentals</h3>
-          <div class="card-sub" style="margin-bottom: 12px;">
-            These are the headline numbers — same data Zerodha and Groww show on a stock's page.
-            The third column tells you what each means for a beginner.
-          </div>
-          <table class="fund-table">
-            <thead><tr><th>Metric</th><th>Value</th><th>What it means for a beginner</th></tr></thead>
-            <tbody id="fund-body"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- C. Health scorecard -->
-      <section data-pane="health" class="hidden">
-        <div class="card">
-          <h3>🎯 Educational health scorecard</h3>
-          <div class="card-sub" style="margin-bottom: 14px;">
-            Seven dimensions a professional checks before forming any view. <strong>This is not buy/sell advice</strong> — it shows where the company looks strong, weak, or where you should investigate further.
-          </div>
-          <div id="health-grid" class="health-grid"></div>
-        </div>
-      </section>
-
-      <!-- D. Chart + indicators -->
-      <section data-pane="chart" class="hidden">
-        <div class="card">
-          <h3>📈 Price &amp; trend</h3>
-          <div class="card-sub" id="trend-narrative" style="margin-bottom: 14px;">—</div>
-          <div id="chart-container" style="width: 100%; height: 380px;"></div>
-        </div>
-        <div class="card" style="margin-top: 16px;">
-          <h3>Technical indicators (with translations)</h3>
-          <div id="indicators-rows" class="health-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));"></div>
-        </div>
-      </section>
-
-      <!-- E. News + upcoming events -->
-      <section data-pane="news" class="hidden">
-        <div class="card">
-          <h3>📅 Upcoming events</h3>
-          <div class="card-sub" style="margin-bottom: 14px;">
-            Forward-looking calendar — same data Zerodha &amp; Groww display. Knowing dates ahead is more useful than reacting after.
-          </div>
-          <div id="upcoming-events" class="event-list"></div>
-        </div>
-        <div class="card" style="margin-top: 16px;">
-          <h3>📰 Recent news &amp; what it might mean</h3>
-          <div id="news-list" class="event-list"></div>
-        </div>
-      </section>
-
-      <!-- F. Workflow -->
-      <section data-pane="workflow" class="hidden">
-        <div class="card">
-          <h3>🧠 How a professional reads this stock</h3>
-          <div class="card-sub" style="margin-bottom: 14px;">
-            Eight structured steps. Each step lists the questions a professional asks
-            and shows what those questions reveal — using <em>this</em> ticker's actual data.
-          </div>
-          <div id="workflow" class="workflow"></div>
-        </div>
-      </section>
-
-      <!-- G. Beginner summary -->
-      <section data-pane="summary" class="hidden">
-        <div class="card">
-          <h3>🎓 Beginner learning summary</h3>
-          <div class="card-sub" style="margin-bottom: 14px;">
-            What this case teaches you. <strong>Not advice</strong> — these are the dimensions
-            you should study deeper next time you look at a stock.
-          </div>
-          <div id="summary-body"></div>
-        </div>
-      </section>
+      </div>
     </main>
   </div>
 
@@ -217,6 +292,8 @@
   </footer>
 
   <script src="/js/api.js"></script>
+  <script src="/js/cinematic.js"></script>
   <script src="/js/dashboard.js"></script>
+  <script src="/js/dashboard-journey.js"></script>
 </body>
 </html>

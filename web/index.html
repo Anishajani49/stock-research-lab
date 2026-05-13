@@ -3,18 +3,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Stock Research Lab — Beautiful Finance Learning</title>
-  <meta name="description" content="A modern, beginner-friendly Indian stock and mutual fund learning platform with guided analysis and interactive practice." />
+  <title>Stock Research Lab — Learn markets with clarity</title>
+  <meta name="description" content="A cinematic, beginner-friendly Indian stock learning platform. Guided analysis, candlestick drills, and red-flag hunts in annual reports." />
   <link rel="stylesheet" href="/css/styles.css" />
-  <link rel="stylesheet" href="/css/home-wow.css" />
+  <link rel="stylesheet" href="/css/cinematic.css" />
 </head>
-<body class="atelier-home">
-  <div class="atelier-progress"><div id="atelier-progress-fill"></div></div>
-  <div class="mesh mesh-a"></div>
-  <div class="mesh mesh-b"></div>
-  <div class="grain"></div>
+<body class="observatory">
+  <div class="cin-aurora"></div>
+  <div class="cin-grid"></div>
+  <div class="cin-noise"></div>
 
-  <nav class="nav atelier-nav">
+  <nav class="nav">
     <div class="container nav-inner">
       <a class="brand" href="/">
         <span class="brand-mark"></span>
@@ -31,172 +30,324 @@
     </div>
   </nav>
 
-  <header class="atelier-hero">
-    <div class="container atelier-hero-grid">
-      <div class="reveal" data-reveal>
-        <span class="atelier-pill">Educational Platform · Indian Markets · No Investment Advice</span>
-        <h1>Learn markets with<br /><span>taste, depth, and clarity.</span></h1>
-        <p>
-          A beautiful finance learning studio for Indian stocks and mutual funds.
-          Understand fundamentals, technicals, risk, candlesticks, and sentiment with guided context.
-        </p>
+  <!-- =================================================================
+       1.  HERO — full-bleed, cinematic, magnetic search
+       ================================================================= -->
+  <header class="cin-hero">
+    <div class="cin-hero-candles" aria-hidden="true">
+      <svg viewBox="0 0 1600 600" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="cg-up" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%"  stop-color="#10b981" stop-opacity=".85"/>
+            <stop offset="100%" stop-color="#10b981" stop-opacity=".15"/>
+          </linearGradient>
+          <linearGradient id="cg-dn" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%"  stop-color="#f43f5e" stop-opacity=".85"/>
+            <stop offset="100%" stop-color="#f43f5e" stop-opacity=".15"/>
+          </linearGradient>
+        </defs>
+        <g id="cin-candle-field" stroke-width="2" stroke-linecap="round"></g>
+        <path d="M0,380 C200,300 320,420 520,360 C720,300 880,200 1080,260 C1280,320 1440,220 1600,300"
+              stroke="rgba(99,102,241,.35)" stroke-width="2" fill="none" stroke-dasharray="2 5" />
+      </svg>
+    </div>
 
-        <div class="search-box atelier-search">
-          <input
-            id="search-input"
-            class="search-input"
-            type="text"
-            placeholder="Enter ticker — RELIANCE, TCS, INFY, ITC"
-            autocomplete="off"
-            spellcheck="false"
-          />
-          <button id="search-go" class="search-go">Analyze →</button>
-          <div id="search-suggestions" class="search-suggestions"></div>
-        </div>
+    <div class="container cin-hero-inner">
+      <span class="cin-hero-pill" data-cin-reveal>
+        <span class="dot"></span>
+        Educational · Indian markets · No buy/sell advice
+      </span>
 
-        <div class="atelier-links">
-          <a href="/quest">Play Quest Mode</a>
-          <a href="/learn">Candlestick Learning</a>
-          <a href="/annual-report">Annual Report Lab</a>
+      <h1 class="cin-hero-title" data-cin-reveal>
+        Learn markets with <em>cinematic clarity.</em>
+      </h1>
+
+      <p class="cin-hero-lead" data-cin-reveal>
+        A premium, beginner-friendly studio for Indian stocks and mutual funds. Move through
+        fundamentals, technicals, sentiment, and risk &mdash; the way a professional analyst would,
+        not the way a spreadsheet would.
+      </p>
+
+      <div class="cin-search" data-cin-reveal>
+        <div class="cin-search-inner">
+          <input id="search-input" type="text"
+                 placeholder="Type a ticker — RELIANCE · TCS · INFY · ITC"
+                 autocomplete="off" spellcheck="false" />
+          <button id="search-go" class="cin-search-go">Analyze →</button>
+          <div id="search-suggestions" class="cin-search-suggestions"></div>
         </div>
       </div>
 
-      <div class="hero-art reveal" data-reveal>
-        <div class="hero-art-card top">
-          <small>Risk Pulse</small>
-          <strong>Calibrated</strong>
-          <p>Momentum, volatility, and evidence confidence mapped for beginners.</p>
-        </div>
-        <div class="hero-art-card middle">
-          <small>Analysis Journey</small>
-          <strong>Step-by-step</strong>
-          <p>From business understanding to “should I study this stock further?”</p>
-        </div>
-        <div class="hero-art-card bottom">
-          <small>Candlestick Drills</small>
-          <strong>Interactive</strong>
-          <p>Pattern practice using real chart context instead of static textbook images.</p>
-        </div>
+      <div class="cin-hero-chips" data-cin-reveal data-cin-stagger>
+        <a href="/quest">▶ Play Quest Mode</a>
+        <a href="/learn">📊 Candlestick Drills</a>
+        <a href="/annual-report">📄 Annual Report Lab</a>
+        <a href="/glossary">🔤 Finance Dictionary</a>
       </div>
+
+      <div class="cin-hero-trust" data-cin-reveal>
+        <div><strong>5</strong><span>guided journeys per stock</span></div>
+        <div><strong>8</strong><span>fundamentals decoded</span></div>
+        <div><strong>0</strong><span>buy/sell calls — ever</span></div>
+      </div>
+    </div>
+
+    <div class="cin-hero-scroll-cue" aria-hidden="true">
+      <span>Scroll to zoom in</span>
+      <i></i>
     </div>
   </header>
 
-  <section class="atelier-stats reveal" data-reveal>
-    <div class="container atelier-stats-grid">
-      <article><span>Learning Lens</span><strong>Fundamentals</strong><p>Growth, profitability, valuation, debt, cash quality.</p></article>
-      <article><span>Learning Lens</span><strong>Technicals</strong><p>Trend, RSI, MACD, volatility, and pattern context.</p></article>
-      <article><span>Learning Lens</span><strong>Events</strong><p>News categorized into regulatory, legal, earnings, and more.</p></article>
-      <article><span>Learning Lens</span><strong>Verdict</strong><p>Worth studying further, wait, or risk appears elevated.</p></article>
+  <!-- =================================================================
+       2.  ZOOM INTO A STOCK — sticky scale "cinematic"
+       ================================================================= -->
+  <section class="cin-zoom">
+    <div class="container cin-section-head" data-cin-reveal>
+      <span class="cin-eyebrow">Scene 01 · Zoom in</span>
+      <h2>One ticker. <em>A full universe.</em></h2>
+      <p>Type a symbol and the platform expands it into a guided story &mdash; business, fundamentals, chart context, news, risk, and the questions a professional would ask next.</p>
+    </div>
+
+    <div class="cin-sticky-scale">
+      <div class="cin-sticky-inner">
+        <div class="cin-sticky-target">
+          <article class="cin-ticker-card glass">
+            <header>
+              <div class="cin-ticker-meta">
+                <span class="cin-ticker-symbol">RELIANCE</span>
+                <span class="cin-ticker-name">Reliance Industries Ltd · NSE</span>
+              </div>
+              <span class="cin-ticker-stance">🔬 Research more</span>
+            </header>
+            <div class="cin-ticker-grid">
+              <div class="cin-metric">
+                <div class="cin-metric-label">Last close</div>
+                <div class="cin-metric-value">₹2,847.30</div>
+                <div class="cin-metric-sub up">▲ 3.4% · 6mo</div>
+              </div>
+              <div class="cin-metric is-bull">
+                <div class="cin-metric-label">Trend</div>
+                <div class="cin-metric-value">Uptrend</div>
+                <div class="cin-metric-sub">High confidence</div>
+              </div>
+              <div class="cin-metric">
+                <div class="cin-metric-label">P/E</div>
+                <div class="cin-metric-value">24.6</div>
+                <div class="cin-metric-sub">Sector avg 28.1</div>
+              </div>
+              <div class="cin-metric is-warn">
+                <div class="cin-metric-label">Debt / Equity</div>
+                <div class="cin-metric-value">42</div>
+                <div class="cin-metric-sub">Watch closely</div>
+              </div>
+            </div>
+            <svg class="cin-ticker-spark" viewBox="0 0 320 80" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="cin-spark-fill" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#6366f1" stop-opacity=".5"/>
+                  <stop offset="100%" stop-color="#6366f1" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path d="M0,60 C30,55 50,62 80,48 C110,34 140,42 170,30 C200,18 230,28 260,22 C290,16 310,20 320,12 L320,80 L0,80 Z"
+                    fill="url(#cin-spark-fill)" />
+              <path d="M0,60 C30,55 50,62 80,48 C110,34 140,42 170,30 C200,18 230,28 260,22 C290,16 310,20 320,12"
+                    stroke="#a5b4fc" stroke-width="2" fill="none" stroke-linecap="round" />
+            </svg>
+            <footer>
+              <span>👀 What a pro would check next</span>
+              <em>Q3 results · 12 days</em>
+            </footer>
+          </article>
+        </div>
+      </div>
     </div>
   </section>
 
-  <main class="container atelier-main">
-    <section class="atelier-theater">
-      <div class="theater-copy">
-        <h2 class="reveal" data-reveal>Scroll-through analysis theater</h2>
-        <p class="reveal" data-reveal>
-          As you scroll, the right panel updates like a live instructor.
-          You are not reading a static dashboard. You are moving through a professional thought process.
-        </p>
+  <!-- =================================================================
+       3.  PARALLAX DEPTH STRIP
+       ================================================================= -->
+  <section class="cin-depth cin-parallax">
+    <div class="cin-layer cin-depth-back" data-cin-parallax="0.15" aria-hidden="true">
+      <svg viewBox="0 0 1600 400" preserveAspectRatio="none">
+        <path d="M0,300 C200,260 400,320 600,200 C800,80 1000,180 1200,140 C1400,100 1500,160 1600,120"
+              stroke="rgba(99,102,241,.18)" stroke-width="2" fill="none" />
+        <path d="M0,340 C220,300 420,360 620,240 C820,120 1020,220 1220,180 C1420,140 1520,200 1600,160"
+              stroke="rgba(16,185,129,.12)" stroke-width="2" fill="none" />
+      </svg>
+    </div>
 
-        <article class="theater-step is-active reveal" data-reveal data-step
-          data-title="1. Understand the business"
-          data-body="Start by decoding what the company sells, who pays for it, and how durable that demand is."
-          data-color="var(--tone-coral)">
-          <span>01</span>
-          <h3>Understand the business</h3>
-          <p>Can you explain this company in plain language without jargon?</p>
-        </article>
+    <div class="cin-layer cin-depth-mid" data-cin-parallax="0.35" aria-hidden="true">
+      <span class="cin-chip" style="left: 8%;  top: 28%;">RSI <strong>54</strong></span>
+      <span class="cin-chip" style="left: 70%; top: 18%;">P/E <strong>24.6</strong></span>
+      <span class="cin-chip" style="left: 22%; top: 70%;">ROE <strong>18%</strong></span>
+      <span class="cin-chip" style="left: 82%; top: 64%;">MACD <strong>+0.42</strong></span>
+    </div>
 
-        <article class="theater-step reveal" data-reveal data-step
-          data-title="2. Pressure-test fundamentals"
-          data-body="Growth, margins, debt, and valuation are interpreted together to avoid one-metric traps."
-          data-color="var(--tone-sun)">
-          <span>02</span>
-          <h3>Pressure-test fundamentals</h3>
-          <p>Strong narratives fail when the financial base is weak.</p>
-        </article>
+    <div class="container cin-depth-front" data-cin-parallax="0.55" data-cin-parallax-axis="y">
+      <div class="cin-section-head" data-cin-reveal>
+        <span class="cin-eyebrow">Scene 02 · Depth of field</span>
+        <h2>Reading the same chart, <em>at three different distances.</em></h2>
+        <p>Beginners see candles. Analysts see context. We layer the indicators, the events, and the questions on top of one another &mdash; so you build the eye, not just the answer.</p>
+      </div>
+    </div>
+  </section>
 
-        <article class="theater-step reveal" data-reveal data-step
-          data-title="3. Separate signal from noise"
-          data-body="Events are ranked and classified so market noise does not drown stock-specific developments."
-          data-color="var(--tone-teal)">
-          <span>03</span>
-          <h3>Separate signal from noise</h3>
-          <p>Not all headlines deserve equal weight.</p>
-        </article>
-
-        <article class="theater-step reveal" data-reveal data-step
-          data-title="4. Read chart context"
-          data-body="Candlesticks and indicators are useful only when interpreted in trend and volume context."
-          data-color="var(--tone-blue)">
-          <span>04</span>
-          <h3>Read chart context</h3>
-          <p>Patterns are clues, not commands.</p>
-        </article>
-
-        <article class="theater-step reveal" data-reveal data-step
-          data-title="5. Decide: worth deeper study?"
-          data-body="Output is educational: worth studying further, wait for evidence, or risk appears elevated."
-          data-color="var(--tone-ink)">
-          <span>05</span>
-          <h3>Decide: worth deeper study?</h3>
-          <p>No buy/sell language. Only transparent learning verdicts.</p>
-        </article>
+  <!-- =================================================================
+       4.  FIVE-ACT JOURNEY
+       ================================================================= -->
+  <section class="cin-journey">
+    <div class="container">
+      <div class="cin-section-head" data-cin-reveal>
+        <span class="cin-eyebrow">Scene 03 · The journey</span>
+        <h2>Five acts. <em>One thinking pattern.</em></h2>
+        <p>As you scroll, the right-hand stage updates like a live instructor. You are not reading a static dashboard &mdash; you are moving through a professional thought process.</p>
       </div>
 
-      <aside class="theater-stage reveal" data-reveal>
-        <small id="stage-kicker">Live Guidance</small>
-        <h3 id="stage-title">1. Understand the business</h3>
-        <p id="stage-body">Start by decoding what the company sells, who pays for it, and how durable that demand is.</p>
-        <div class="stage-meter-track">
-          <div id="stage-meter-fill"></div>
+      <div class="cin-journey-grid">
+        <div class="cin-journey-steps">
+          <article class="cin-act is-active" data-act
+                   data-title="01 · Understand the business"
+                   data-body="Decode what the company sells, who pays for it, and how durable that demand is. If you can't explain it in plain language, you don't own the thesis yet."
+                   data-tone="coral">
+            <span>01</span>
+            <h3>Understand the business</h3>
+            <p>Plain-language framing before any spreadsheet opens.</p>
+          </article>
+          <article class="cin-act" data-act
+                   data-title="02 · Pressure-test fundamentals"
+                   data-body="Growth, margins, debt, and valuation read together &mdash; never in isolation. Strong narratives still fail when the financial base is weak."
+                   data-tone="sun">
+            <span>02</span>
+            <h3>Pressure-test fundamentals</h3>
+            <p>Eight metrics, decoded for beginners.</p>
+          </article>
+          <article class="cin-act" data-act
+                   data-title="03 · Separate signal from noise"
+                   data-body="News is ranked and classified. Regulator action, earnings, leadership changes &mdash; not all headlines deserve equal weight."
+                   data-tone="teal">
+            <span>03</span>
+            <h3>Separate signal from noise</h3>
+            <p>News scored by category and recency.</p>
+          </article>
+          <article class="cin-act" data-act
+                   data-title="04 · Read chart context"
+                   data-body="Candlesticks and indicators are useful only when interpreted in trend and volume context. Patterns are clues, not commands."
+                   data-tone="blue">
+            <span>04</span>
+            <h3>Read chart context</h3>
+            <p>Trend, RSI, MACD, ATR &mdash; with translations.</p>
+          </article>
+          <article class="cin-act" data-act
+                   data-title="05 · Decide: study deeper?"
+                   data-body="The verdict is educational: worth studying further, wait, or risk appears elevated. No buy/sell language. Only transparent learning."
+                   data-tone="indigo">
+            <span>05</span>
+            <h3>Decide: study deeper?</h3>
+            <p>One of five transparent verdicts.</p>
+          </article>
         </div>
-        <div id="stage-meter-text">Step 1 / 5</div>
-        <div class="stage-cta-row">
-          <a href="/dashboard">Open Analysis</a>
-          <a href="/quest">Play Quest</a>
-        </div>
-      </aside>
-    </section>
 
-    <section class="atelier-mosaic">
-      <a href="/quest" class="mosaic-card wide reveal" data-reveal>
-        <div>
-          <small>Game 1</small>
-          <h3>Stock Market Quest</h3>
-          <p>Mission-based learning with progress mechanics and practical judgement training.</p>
-        </div>
-        <span>Launch</span>
-      </a>
-      <a href="/quest" class="mosaic-card reveal" data-reveal>
-        <div>
-          <small>Game 2</small>
-          <h3>Candlestick Pattern Game</h3>
-          <p>Identify, validate, and learn pattern context on real bars.</p>
-        </div>
-        <span>Play</span>
-      </a>
-      <a href="/annual-report" class="mosaic-card reveal" data-reveal>
-        <div>
-          <small>Deep Reading</small>
-          <h3>Annual Report Lab</h3>
-          <p>Learn how professionals scan filings for red flags and conviction signals.</p>
-        </div>
-        <span>Open</span>
-      </a>
-    </section>
-  </main>
+        <aside class="cin-journey-stage glass">
+          <small id="cin-stage-kicker">Live guidance</small>
+          <h3 id="cin-stage-title">01 · Understand the business</h3>
+          <p id="cin-stage-body">Decode what the company sells, who pays for it, and how durable that demand is. If you can't explain it in plain language, you don't own the thesis yet.</p>
+          <div class="cin-stage-meter">
+            <i id="cin-stage-fill"></i>
+          </div>
+          <div class="cin-stage-meter-text" id="cin-stage-text">Act 1 / 5</div>
+          <div class="cin-stage-cta">
+            <a href="/dashboard">Open analysis</a>
+            <a href="/quest">Play quest</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
 
-  <footer class="disclaimer atelier-disclaimer">
+  <!-- =================================================================
+       5.  LEARNING ARENA — interactive entry hub
+       ================================================================= -->
+  <section class="cin-arena">
+    <div class="container">
+      <div class="cin-section-head" data-cin-reveal>
+        <span class="cin-eyebrow">Scene 04 · The arena</span>
+        <h2>Welcome to the <em>Learning Arena.</em></h2>
+        <p>Six interactive challenges &mdash; designed so you build the analyst's eye through play, not memorisation. Pick a challenge to begin.</p>
+      </div>
+
+      <div class="cin-arena-grid" data-cin-stagger>
+        <a href="/quest" class="cin-arena-card glass glow" data-cin-reveal>
+          <span class="cin-arena-tag">Game 01</span>
+          <h3>Analyst Quest</h3>
+          <p>Five missions on a real Indian stock. Earn XP for the right thinking, not the right guess.</p>
+          <span class="cin-arena-cta">Launch →</span>
+        </a>
+
+        <a href="/learn" class="cin-arena-card glass glow" data-cin-reveal>
+          <span class="cin-arena-tag">Game 02</span>
+          <h3>Candlestick Drill</h3>
+          <p>Spot doji, hammer, engulfing patterns on live bars. Get instant context on why they matter.</p>
+          <span class="cin-arena-cta">Play →</span>
+        </a>
+
+        <a href="/annual-report" class="cin-arena-card glass glow" data-cin-reveal>
+          <span class="cin-arena-tag">Game 03</span>
+          <h3>Red Flag Hunt</h3>
+          <p>Upload an annual report. We surface the chapters &mdash; you hunt for the red flags pros catch first.</p>
+          <span class="cin-arena-cta">Hunt →</span>
+        </a>
+
+        <div class="cin-arena-card glass cin-arena-soon" data-cin-reveal>
+          <span class="cin-arena-tag">Game 04 · Soon</span>
+          <h3>News Sentiment Challenge</h3>
+          <p>Read a headline, predict its impact. Compare to the deterministic engine's call.</p>
+          <span class="cin-arena-cta">Coming soon</span>
+        </div>
+
+        <div class="cin-arena-card glass cin-arena-soon" data-cin-reveal>
+          <span class="cin-arena-tag">Game 05 · Soon</span>
+          <h3>Ratio Detective</h3>
+          <p>Given a P/L and balance sheet, race the clock to compute the seven health ratios.</p>
+          <span class="cin-arena-cta">Coming soon</span>
+        </div>
+
+        <div class="cin-arena-card glass cin-arena-soon" data-cin-reveal>
+          <span class="cin-arena-tag">Game 06 · Soon</span>
+          <h3>Explain the Chart</h3>
+          <p>You see a chart. Write a one-paragraph thesis. The platform grades your reasoning.</p>
+          <span class="cin-arena-cta">Coming soon</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================================================================
+       6.  CLOSING BAND
+       ================================================================= -->
+  <section class="cin-close">
+    <div class="container">
+      <div class="cin-close-card glass" data-cin-reveal>
+        <h2>Built for learning. <em>Never for advice.</em></h2>
+        <p>Every verdict cites the rule that fired. Every metric explains itself. No price targets, no "buy now" language, no hallucinations.</p>
+        <div class="cin-close-cta">
+          <a href="/dashboard" class="cin-btn cin-btn-primary">Analyze a stock</a>
+          <a href="/glossary" class="cin-btn cin-btn-ghost">Read the dictionary</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="disclaimer">
     <div class="container">
       <strong>Disclaimer:</strong> Educational content only. Not financial advice.
-      No buy/sell calls, no target prices, no guaranteed returns.
+      No buy/sell calls, no target prices, no guaranteed returns. Always consult a SEBI-registered advisor.
     </div>
   </footer>
 
+  <link rel="stylesheet" href="/css/home.css" />
   <script src="/js/api.js"></script>
+  <script src="/js/cinematic.js"></script>
   <script src="/js/landing.js"></script>
-  <script src="/js/home-wow.js"></script>
+  <script src="/js/home.js"></script>
 </body>
 </html>
