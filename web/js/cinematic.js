@@ -13,6 +13,7 @@
     initReveal();
     initParallax();
     initStickyScale();
+    initHorizontalPin();
     initMagneticSearch();
     initCountUp();
   });
@@ -140,6 +141,54 @@
         const lift = -progress * 24;            // lifts as it grows
         target.style.transform = `translate3d(0, ${lift}px, 0) scale(${scale.toFixed(3)})`;
         target.style.opacity = opacity.toFixed(3);
+      });
+      ticking = false;
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(apply);
+        ticking = true;
+      }
+    };
+    apply();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+  }
+
+  // -------------------------------------------------------------------
+  // Horizontal pin — `.cin-pin` is a tall wrapper whose `.cin-pin-stage`
+  // sticks to the viewport. As the user scrolls vertically through the
+  // wrapper, `.cin-pin-track` translates horizontally so the panels
+  // sweep across like a filmstrip. Cinematic.
+  // -------------------------------------------------------------------
+  function initHorizontalPin() {
+    const wraps = document.querySelectorAll('.cin-pin');
+    if (!wraps.length) return;
+
+    const instances = Array.from(wraps).map((w) => {
+      const track = w.querySelector('.cin-pin-track');
+      const panels = w.querySelectorAll('.cin-pin-panel');
+      const progress = w.querySelectorAll('.cin-pin-progress > i');
+      return { w, track, panels, progress };
+    });
+
+    if (reduced) {
+      instances.forEach(({ w }) => { w.style.height = 'auto'; });
+      return;
+    }
+
+    let ticking = false;
+    const apply = () => {
+      instances.forEach(({ w, track, panels, progress }) => {
+        if (!track || !panels.length) return;
+        const rect = w.getBoundingClientRect();
+        const total = rect.height - window.innerHeight;
+        const p = Math.min(1, Math.max(0, -rect.top / Math.max(1, total)));
+        const maxOffset = (panels.length - 1) * window.innerWidth;
+        track.style.transform = `translate3d(${-(p * maxOffset).toFixed(1)}px, 0, 0)`;
+        // mark active panel
+        const idx = Math.min(panels.length - 1, Math.round(p * (panels.length - 1)));
+        progress.forEach((dot, i) => dot.classList.toggle('is-active', i <= idx));
       });
       ticking = false;
     };

@@ -12,6 +12,7 @@
   <div class="cin-aurora"></div>
   <div class="cin-grid"></div>
   <div class="cin-noise"></div>
+  <div class="cin-vignette"></div>
 
   <nav class="nav">
     <div class="container nav-inner">
@@ -188,6 +189,120 @@
         <span class="cin-eyebrow">Scene 02 · Depth of field</span>
         <h2>Reading the same chart, <em>at three different distances.</em></h2>
         <p>Beginners see candles. Analysts see context. We layer the indicators, the events, and the questions on top of one another &mdash; so you build the eye, not just the answer.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =================================================================
+       3.5  HORIZONTAL FILMSTRIP — pinned section, panels sweep sideways
+       ================================================================= -->
+  <section class="cin-pin">
+    <div class="cin-pin-stage">
+      <div class="cin-pin-header">
+        <div>
+          <span class="cin-eyebrow">Scene 02½ · Filmstrip</span>
+          <h2>Four frames. <em>One story.</em></h2>
+        </div>
+        <div class="cin-pin-progress" aria-hidden="true">
+          <i class="is-active"></i><i></i><i></i><i></i>
+        </div>
+      </div>
+
+      <div class="cin-pin-track">
+        <article class="cin-pin-panel">
+          <div class="cin-pin-copy">
+            <span class="cin-pin-num">01</span>
+            <h3>The ticker <em>enters frame.</em></h3>
+            <p>You type four letters. We pull live OHLCV, fundamentals, news, and corporate events &mdash; in parallel. No spinners that lie. No empty states that pretend.</p>
+          </div>
+          <div class="cin-pin-art">
+            <div class="glass cin-pin-card" style="left: 8%; top: 18%; width: 78%;">
+              <span class="cin-pin-tag">Ticker</span>
+              <strong style="font-family:'DM Serif Display',serif; font-size: 64px; letter-spacing: -.03em; color: var(--c-ink); display:block; line-height:1;">RELIANCE</strong>
+              <span style="color: var(--c-mute); font-size: 14px;">Reliance Industries Ltd · NSE</span>
+            </div>
+            <div class="glass cin-pin-mini" style="right: 0; bottom: 12%;">
+              <span>Loading 6 streams in parallel</span>
+              <i></i>
+            </div>
+          </div>
+        </article>
+
+        <article class="cin-pin-panel">
+          <div class="cin-pin-copy">
+            <span class="cin-pin-num">02</span>
+            <h3>Fundamentals, <em>decoded.</em></h3>
+            <p>Thirteen metrics, each with a plain-English meaning. The same data Zerodha and Groww show &mdash; but with the &ldquo;so what?&rdquo; attached, in the language of a teacher, not a spreadsheet.</p>
+          </div>
+          <div class="cin-pin-art">
+            <div class="cin-metric glass" style="left: 0; top: 8%;  width: 56%;">
+              <div class="cin-metric-label">P/E (trailing)</div>
+              <div class="cin-metric-value">24.6</div>
+              <div class="cin-metric-sub">Sector avg 28.1</div>
+            </div>
+            <div class="cin-metric glass is-bull" style="right: 0; top: 30%; width: 56%;">
+              <div class="cin-metric-label">ROE</div>
+              <div class="cin-metric-value">18.4%</div>
+              <div class="cin-metric-sub up">Healthy &gt; 15%</div>
+            </div>
+            <div class="cin-metric glass is-warn" style="left: 10%; bottom: 6%; width: 56%;">
+              <div class="cin-metric-label">Debt / Equity</div>
+              <div class="cin-metric-value">42</div>
+              <div class="cin-metric-sub">Watch closely</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="cin-pin-panel">
+          <div class="cin-pin-copy">
+            <span class="cin-pin-num">03</span>
+            <h3>The chart <em>reveals itself.</em></h3>
+            <p>Candles, RSI, MACD, ATR &mdash; in context, with the questions an analyst asks next. Patterns are clues, not commands. We teach you the eye, not the answer.</p>
+          </div>
+          <div class="cin-pin-art">
+            <div class="glass" style="inset: 6% 0; padding: 18px; border-radius: 20px;">
+              <svg viewBox="0 0 320 220" preserveAspectRatio="none" style="width:100%; height:100%;">
+                <defs>
+                  <linearGradient id="cin-pin-fill" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0%"  stop-color="#8b5cf6" stop-opacity=".55"/>
+                    <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0,160 C40,150 60,170 90,140 C120,110 150,130 180,90 C210,50 240,80 270,60 C290,46 310,52 320,40 L320,220 L0,220 Z" fill="url(#cin-pin-fill)" />
+                <path d="M0,160 C40,150 60,170 90,140 C120,110 150,130 180,90 C210,50 240,80 270,60 C290,46 310,52 320,40" stroke="#c4b5fd" stroke-width="2" fill="none" stroke-linecap="round"/>
+                <g fill="none" stroke-width="2" stroke-linecap="round">
+                  <line x1="40" y1="120" x2="40" y2="80" stroke="#10b981"/>
+                  <rect x="34" y="90" width="12" height="22" fill="#10b981" opacity=".7"/>
+                  <line x1="120" y1="140" x2="120" y2="100" stroke="#10b981"/>
+                  <rect x="114" y="110" width="12" height="24" fill="#10b981" opacity=".7"/>
+                  <line x1="200" y1="100" x2="200" y2="60" stroke="#f43f5e"/>
+                  <rect x="194" y="68" width="12" height="24" fill="#f43f5e" opacity=".7"/>
+                  <line x1="270" y1="80" x2="270" y2="40" stroke="#10b981"/>
+                  <rect x="264" y="48" width="12" height="24" fill="#10b981" opacity=".7"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+        </article>
+
+        <article class="cin-pin-panel">
+          <div class="cin-pin-copy">
+            <span class="cin-pin-num">04</span>
+            <h3>The verdict, <em>transparently.</em></h3>
+            <p>One of five educational verdicts &mdash; with the exact rules that fired, the bullish and bearish points the engine collected, and the conditions that would change the view.</p>
+          </div>
+          <div class="cin-pin-art">
+            <div class="glass" style="inset: 8% 0; padding: 22px; display:flex; flex-direction:column; gap: 14px;">
+              <span style="font: 600 11px/1 'Manrope',sans-serif; letter-spacing:.14em; text-transform: uppercase; color: var(--c-mute);">Educational verdict</span>
+              <strong style="font-family:'DM Serif Display',serif; font-size: 44px; line-height:1; letter-spacing:-.02em; color: var(--c-ink);">🟢 Early positive setup</strong>
+              <p style="margin:0; color: var(--c-ink-2); font-size: 14.5px; line-height: 1.6;">High confidence (0.82). Five rules fired: trend uptrend, RSI healthy, P/E reasonable, no red-flag news, fresh 52-week-high momentum.</p>
+              <div style="display:flex; gap:6px;">
+                <span style="padding:5px 11px; border-radius:999px; font:700 11px/1 'JetBrains Mono',monospace; background:rgba(16,185,129,.16); color:#6ee7b7;">5 bullish</span>
+                <span style="padding:5px 11px; border-radius:999px; font:700 11px/1 'JetBrains Mono',monospace; background:rgba(244,63,94,.14); color:#fda4af;">1 bearish</span>
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
   </section>

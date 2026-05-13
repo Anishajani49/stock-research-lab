@@ -65,27 +65,30 @@ body.daylight {
    Observatory (deep glass fintech) — analysis pages.
    ----------------------------------------------------------------------- */
 body.observatory {
-  --c-bg:        #0a0d18;
-  --c-bg-2:      #11172a;
-  --c-bg-3:      #161d33;
+  --c-bg:        #08081a;
+  --c-bg-2:      #0e0e22;
+  --c-bg-3:      #161635;
   --c-surface:   rgba(255,255,255,.04);
   --c-surface-2: rgba(255,255,255,.06);
-  --c-ink:       #e6e9f2;
-  --c-ink-2:     #c2c7d6;
-  --c-mute:      #8a93ad;
+  --c-ink:       #ece7f5;
+  --c-ink-2:     #c8c2dc;
+  --c-mute:      #8a83a8;
   --c-line:      rgba(255,255,255,.08);
   --c-line-2:    rgba(255,255,255,.14);
-  --c-accent:    var(--acc-indigo);
+  /* Brand identity shifts from cool indigo to deeper violet w/ champagne. */
+  --acc-violet:  #8b5cf6;
+  --acc-champagne: #e9b769;
+  --c-accent:    var(--acc-violet);
   --c-accent-2:  var(--acc-mint);
   --c-glass:     rgba(255,255,255,.05);
-  --c-glow:      rgba(99,102,241,.35);
+  --c-glow:      rgba(139,92,246,.40);
   --c-bull:      var(--acc-mint);
   --c-bear:      var(--acc-rose);
   background:
-    radial-gradient(1200px 700px at 18% -10%, rgba(99,102,241,.18), transparent 60%),
-    radial-gradient(900px 600px at 95% 8%, rgba(16,185,129,.10), transparent 60%),
-    radial-gradient(800px 800px at 50% 110%, rgba(244,114,182,.10), transparent 60%),
-    #0a0d18;
+    radial-gradient(1200px 700px at 18% -10%, rgba(139,92,246,.22), transparent 60%),
+    radial-gradient(900px 600px at 95% 8%, rgba(6,214,160,.10), transparent 60%),
+    radial-gradient(800px 800px at 50% 110%, rgba(233,183,105,.10), transparent 60%),
+    #08081a;
   color: var(--c-ink);
 }
 
@@ -96,12 +99,19 @@ body.observatory {
   position: fixed; inset: -10vmax;
   z-index: -2; pointer-events: none;
   filter: blur(80px);
-  opacity: .9;
+  opacity: .95;
   background:
-    radial-gradient(40vmax 40vmax at 20% 30%, rgba(99,102,241,.32), transparent 60%),
-    radial-gradient(38vmax 38vmax at 80% 70%, rgba(16,185,129,.22), transparent 60%),
-    radial-gradient(32vmax 32vmax at 50% 100%, rgba(244,114,182,.18), transparent 60%);
+    radial-gradient(40vmax 40vmax at 20% 30%, rgba(139,92,246,.34), transparent 60%),
+    radial-gradient(38vmax 38vmax at 80% 70%, rgba(6,214,160,.20), transparent 60%),
+    radial-gradient(32vmax 32vmax at 50% 100%, rgba(233,183,105,.18), transparent 60%);
   animation: cin-aurora-float 28s var(--ease-cinema) infinite alternate;
+}
+/* Subtle vignette layered on top of aurora — feels like a film frame */
+.cin-vignette {
+  position: fixed; inset: 0;
+  z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(120% 80% at 50% 50%, transparent 50%, rgba(0,0,0,.45) 100%);
 }
 body.daylight .cin-aurora {
   opacity: .55;
@@ -352,15 +362,27 @@ body.daylight .cin-search .cin-search-suggestions {
 }
 .cin-search .cin-search-suggestions.is-open { display: block; }
 
-/* When the suggestions panel is open, fade out anything visually competing
-   with it below the search slab. Pure CSS, no JS, graceful fallback. */
-.cin-hero-inner:has(.cin-search-suggestions.is-open) > .cin-hero-chips,
-.cin-hero-inner:has(.cin-search-suggestions.is-open) > .cin-hero-trust {
-  opacity: 0;
-  transform: translateY(8px);
+/* When the suggestions panel is open, dim *everything* on the page that
+   isn't the search itself — spotlight effect. Works across home, dashboard,
+   and any future page using .cin-search. Pure CSS, no JS. */
+body:has(.cin-search-suggestions.is-open) main,
+body:has(.cin-search-suggestions.is-open) header:not(.cin-hero),
+body:has(.cin-search-suggestions.is-open) footer,
+body:has(.cin-search-suggestions.is-open) .cin-hero-chips,
+body:has(.cin-search-suggestions.is-open) .cin-hero-trust,
+body:has(.cin-search-suggestions.is-open) .cin-hero-scroll-cue,
+body:has(.cin-search-suggestions.is-open) .cin-zoom,
+body:has(.cin-search-suggestions.is-open) .cin-depth,
+body:has(.cin-search-suggestions.is-open) .cin-journey,
+body:has(.cin-search-suggestions.is-open) .cin-arena,
+body:has(.cin-search-suggestions.is-open) .cin-close,
+body:has(.cin-search-suggestions.is-open) .cin-pin,
+body:has(.cin-search-suggestions.is-open) .dj-body {
+  opacity: .12;
+  filter: blur(3px);
   pointer-events: none;
-  transition: opacity 260ms var(--ease-cinema),
-              transform 260ms var(--ease-cinema);
+  transition: opacity 280ms var(--ease-cinema),
+              filter 280ms var(--ease-cinema);
 }
 .cin-search .cin-search-suggestions .suggestion {
   padding: 14px 20px;
@@ -416,6 +438,125 @@ body.daylight .cin-search .cin-search-suggestions {
   transform-origin: 50% 50%;
   will-change: transform, opacity;
   transition: transform 60ms linear;
+}
+
+/* -----------------------------------------------------------------------
+   Horizontal-pin (filmstrip) — pinned vertically while content moves left
+   ----------------------------------------------------------------------- */
+.cin-pin {
+  position: relative;
+  height: 400vh;   /* 4 viewports of vertical scroll → 3 panel slides */
+}
+.cin-pin-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cin-pin-header {
+  padding: 60px 48px 16px;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  gap: 24px; flex-wrap: wrap;
+  position: relative; z-index: 2;
+}
+.cin-pin-header .cin-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 600 11px/1 'Manrope', sans-serif;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--c-mute);
+  padding: 7px 13px;
+  border-radius: 999px;
+  border: 1px solid var(--c-line);
+  background: var(--c-surface-2);
+  align-self: flex-start;
+}
+.cin-pin-header h2 {
+  margin: 12px 0 0;
+  font: 400 clamp(32px, 4vw, 56px)/1 'DM Serif Display', serif;
+  letter-spacing: -.025em;
+  color: var(--c-ink);
+}
+.cin-pin-header h2 em {
+  font-style: italic;
+  background: linear-gradient(120deg, var(--acc-violet), var(--acc-champagne) 50%, var(--acc-mint));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cin-pin-progress {
+  display: flex; gap: 6px;
+}
+.cin-pin-progress > i {
+  width: 36px; height: 3px; border-radius: 3px;
+  background: rgba(255,255,255,.10);
+  transition: background var(--t-med);
+}
+.cin-pin-progress > i.is-active {
+  background: linear-gradient(90deg, var(--acc-violet), var(--acc-mint));
+}
+
+.cin-pin-track {
+  display: flex;
+  flex: 1;
+  width: max-content;
+  will-change: transform;
+}
+.cin-pin-panel {
+  flex: 0 0 100vw;
+  height: 100%;
+  padding: 40px 64px 88px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  position: relative;
+}
+.cin-pin-copy {
+  display: flex; flex-direction: column; gap: 16px;
+  max-width: 540px;
+}
+.cin-pin-num {
+  display: inline-grid; place-items: center;
+  width: 56px; height: 56px;
+  border-radius: 16px;
+  font: 700 18px/1 'JetBrains Mono', monospace;
+  color: #fff;
+  background: linear-gradient(135deg, var(--acc-violet), var(--acc-mint));
+  box-shadow: 0 16px 36px rgba(139,92,246,.35);
+}
+.cin-pin-copy h3 {
+  margin: 0;
+  font: 400 clamp(36px, 5vw, 64px)/1 'DM Serif Display', serif;
+  letter-spacing: -.03em;
+  color: var(--c-ink);
+}
+.cin-pin-copy h3 em {
+  font-style: italic;
+  background: linear-gradient(120deg, var(--acc-champagne), var(--acc-violet));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cin-pin-copy p {
+  margin: 0;
+  font-size: 17px; line-height: 1.6;
+  color: var(--c-mute);
+}
+.cin-pin-art {
+  position: relative;
+  height: clamp(280px, 50vh, 460px);
+}
+.cin-pin-art > * {
+  position: absolute;
+}
+
+@media (max-width: 860px) {
+  .cin-pin { height: 320vh; }
+  .cin-pin-panel { grid-template-columns: 1fr; padding: 24px 32px 64px; }
+  .cin-pin-art { height: 220px; }
 }
 
 /* -----------------------------------------------------------------------

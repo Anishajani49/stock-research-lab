@@ -235,6 +235,38 @@
 .cin-chip strong { color: var(--c-ink); font-weight: 700; margin-left: 6px; }
 
 /* -----------------------------------------------------------------------
+   FILMSTRIP — supporting mock-card pieces for the horizontal-pin scene
+   ----------------------------------------------------------------------- */
+.cin-pin-card {
+  padding: 22px 26px;
+  border-radius: var(--rr-lg);
+  display: flex; flex-direction: column; gap: 6px;
+}
+.cin-pin-tag {
+  align-self: flex-start;
+  font: 700 10px/1 'JetBrains Mono', monospace;
+  padding: 5px 9px; border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid var(--c-line);
+  color: var(--c-mute);
+  letter-spacing: .08em; text-transform: uppercase;
+}
+.cin-pin-mini {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  font: 600 12px/1 'Manrope', sans-serif;
+  color: var(--c-mute);
+  white-space: nowrap;
+}
+.cin-pin-mini i {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--acc-mint);
+  box-shadow: 0 0 12px var(--acc-mint);
+  animation: cin-dot-pulse 1.6s ease-in-out infinite;
+}
+
+/* -----------------------------------------------------------------------
    FIVE-ACT JOURNEY
    ----------------------------------------------------------------------- */
 .cin-journey { padding: 80px 0 60px; }
