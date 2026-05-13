@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Annual Report Lab — Stock Research Lab</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="/"><span class="brand-mark"></span><span>Stock Research Lab</span></a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/dashboard">Analyze</a>
+        <a href="/learn">Learn Charts</a>
+        <a href="/annual-report" class="active">Annual Report</a>
+        <a href="/glossary">Dictionary</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" style="padding: 56px 0 24px;">
+    <div class="container">
+      <span class="hero-eyebrow">Read like a pro</span>
+      <h1 style="font-size: 36px;">Learn to <span class="accent">read an annual report.</span></h1>
+      <p class="lead" style="font-size: 16px;">
+        Annual reports are the richest learning artefact in equity research. Paste the link
+        to a public annual report PDF — we'll guide you through the standard chapters,
+        what each one means, and what professionals look for in each.
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card" style="margin-bottom: 24px;">
+      <h3>📂 Choose a report</h3>
+      <div class="card-sub" style="margin-bottom: 14px;">
+        Either paste a URL to a public annual-report PDF (BSE / NSE / company IR page),
+        or upload a PDF you've already downloaded.
+      </div>
+
+      <div style="display: grid; gap: 14px;">
+        <div>
+          <label style="font-size: 13px; font-weight: 600; display:block; margin-bottom: 6px;">Public PDF URL</label>
+          <input id="ar-url" class="search-input" style="height: 44px;" type="text"
+            placeholder="e.g. https://www.bseindia.com/bseplus/AnnualReport/500325/...pdf" />
+        </div>
+        <div>
+          <label style="font-size: 13px; font-weight: 600; display:block; margin-bottom: 6px;">Or upload a PDF</label>
+          <input id="ar-file" type="file" accept="application/pdf" />
+        </div>
+        <div>
+          <label style="font-size: 13px; font-weight: 600; display:block; margin-bottom: 6px;">Company name (optional)</label>
+          <input id="ar-hint" class="search-input" style="height: 44px;" type="text"
+            placeholder="e.g. Reliance Industries — purely for display" />
+        </div>
+        <button id="ar-go" class="search-go" style="position: static; height: 44px; align-self: flex-start;">
+          Analyze report →
+        </button>
+      </div>
+
+      <details style="margin-top: 18px;">
+        <summary style="cursor: pointer; color: var(--accent); font-size: 13px;">💡 Where do I find a public annual-report PDF?</summary>
+        <div class="muted" style="font-size: 13px; line-height: 1.6; padding: 12px 0;">
+          <ul style="margin: 0; padding-left: 18px;">
+            <li><strong>BSE</strong> → search the company → "Annual Reports" tab → right-click the latest PDF → "Copy link address".</li>
+            <li><strong>Company IR page</strong> → "Investors" → "Financial Reports" / "Annual Reports".</li>
+            <li><strong>SEBI's filings</strong> are public but harder to navigate — BSE is usually fastest.</li>
+            <li>Make sure the link ends in <code>.pdf</code> — many IR pages link to an HTML viewer instead of the file itself.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <div id="ar-loader" class="empty hidden">
+      <div class="spinner"></div>
+      <div style="margin-top: 12px;">Downloading and parsing the PDF — this can take 5-20 seconds for a typical 200-page report…</div>
+    </div>
+    <div id="ar-error" class="empty hidden" style="color: var(--bear);"></div>
+
+    <main id="ar-result" class="hidden">
+      <!-- Header strip -->
+      <section class="card" style="background: var(--surface-2);">
+        <div style="display:flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <div class="muted" style="font-size: 12px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600;">Report parsed</div>
+            <h2 id="ar-company" style="margin: 4px 0 4px;">—</h2>
+            <div class="muted" id="ar-source" style="font-size: 12px;">—</div>
+          </div>
+          <div style="text-align: right; min-width: 160px;">
+            <div class="stat" style="background: var(--surface);">
+              <div class="stat-label">Sections found</div>
+              <div class="stat-value" id="ar-sec-count">—</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Top numbers -->
+      <section class="card" style="margin-top: 16px;">
+        <h3>💰 Top numbers we found</h3>
+        <div class="card-sub" style="margin-bottom: 14px;">
+          Heuristically extracted from the report — these are the headline figures pros
+          double-check against the formal financial statements section.
+        </div>
+        <div id="ar-numbers" class="health-grid"></div>
+      </section>
+
+      <!-- Sections found -->
+      <section style="margin-top: 16px;">
+        <h2 style="margin-bottom: 6px;">📑 Chapters of an annual report — guided tour</h2>
+        <p class="muted" style="margin-bottom: 18px; font-size: 14px;">
+          Each chapter exists for a reason. Click "Show preview from this report" to
+          see a real excerpt from the file you uploaded.
+        </p>
+        <div id="ar-sections" class="workflow"></div>
+      </section>
+
+      <!-- Sections missing -->
+      <section class="card" style="margin-top: 18px;">
+        <h3>🔎 Sections we did NOT find</h3>
+        <div class="card-sub" style="margin-bottom: 14px;">
+          Either the report doesn't include these (some smaller companies skip them),
+          or our heuristic missed them. Either way, knowing what SHOULD be there is
+          part of learning to read reports.
+        </div>
+        <div id="ar-missing" class="health-grid"></div>
+      </section>
+
+      <!-- Closing takeaway -->
+      <section class="card" style="margin-top: 18px; background: var(--accent-50); border-color: var(--accent);">
+        <h3>🎓 What you learned in this exercise</h3>
+        <p id="ar-learned" class="muted" style="font-size: 14px; line-height: 1.65; margin: 0;">—</p>
+      </section>
+    </main>
+  </main>
+
+  <footer class="disclaimer">
+    <div class="container">
+      <strong>Disclaimer:</strong> Annual-report excerpts shown here are extracted automatically
+      from public filings for educational study. Always read the original full report on
+      the company's website or BSE/NSE before forming any view. Educational content only — not investment advice.
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/annual-report.js"></script>
+</body>
+</html>

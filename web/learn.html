@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Candlestick Learning — Stock Research Lab</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="/"><span class="brand-mark"></span><span>Stock Research Lab</span></a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/dashboard">Analyze</a>
+        <a href="/learn" class="active">Learn Charts</a>
+        <a href="/annual-report">Annual Report</a>
+        <a href="/glossary">Dictionary</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" style="padding: 56px 0 32px;">
+    <div class="container">
+      <span class="hero-eyebrow">Hands-on Lesson</span>
+      <h1 style="font-size: 36px;">Read a candlestick chart <span class="accent">step by step.</span></h1>
+      <p class="lead" style="font-size: 16px;">
+        Learn what each candle is telling you, plus the textbook patterns
+        professionals look for. Click any pattern card to see the explanation.
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Anatomy section -->
+    <section class="card" style="margin-bottom: 24px;">
+      <h3>🕯️ What is a candlestick?</h3>
+      <div class="card-sub" style="margin-bottom: 14px;">
+        Each candle summarises one period (a day, a week, etc.) of trading.
+        Four numbers — <strong>Open, High, Low, Close</strong> — drawn as a body and two wicks.
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 8px;">
+        <!-- Bullish candle -->
+        <div class="health-cell" style="text-align: center;">
+          <h4 style="margin: 0 0 8px;">🟢 Bullish (green) candle</h4>
+          <svg class="candle-svg" viewBox="0 0 60 200" width="60" height="180">
+            <line x1="30" y1="20" x2="30" y2="60" stroke="#475569" stroke-width="1"/>
+            <rect x="14" y="60" width="32" height="100" fill="#10B981" rx="2"/>
+            <line x1="30" y1="160" x2="30" y2="190" stroke="#475569" stroke-width="1"/>
+            <text x="60" y="20" font-size="9" fill="#94A3B8">High</text>
+            <text x="60" y="64" font-size="9" fill="#10B981">Close</text>
+            <text x="60" y="164" font-size="9" fill="#10B981">Open</text>
+            <text x="60" y="194" font-size="9" fill="#94A3B8">Low</text>
+          </svg>
+          <p class="muted" style="font-size: 13px; line-height:1.5; margin: 8px 0 0;">
+            Close is <em>above</em> the open — buyers won the period. The body shows the open→close range; wicks show the extremes traded.
+          </p>
+        </div>
+        <!-- Bearish candle -->
+        <div class="health-cell" style="text-align: center;">
+          <h4 style="margin: 0 0 8px;">🔴 Bearish (red) candle</h4>
+          <svg class="candle-svg" viewBox="0 0 60 200" width="60" height="180">
+            <line x1="30" y1="20" x2="30" y2="60" stroke="#475569" stroke-width="1"/>
+            <rect x="14" y="60" width="32" height="100" fill="#EF4444" rx="2"/>
+            <line x1="30" y1="160" x2="30" y2="190" stroke="#475569" stroke-width="1"/>
+            <text x="60" y="20" font-size="9" fill="#94A3B8">High</text>
+            <text x="60" y="64" font-size="9" fill="#EF4444">Open</text>
+            <text x="60" y="164" font-size="9" fill="#EF4444">Close</text>
+            <text x="60" y="194" font-size="9" fill="#94A3B8">Low</text>
+          </svg>
+          <p class="muted" style="font-size: 13px; line-height:1.5; margin: 8px 0 0;">
+            Close is <em>below</em> the open — sellers won the period. Same anatomy, just inverted body direction.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Patterns -->
+    <section style="display: grid; grid-template-columns: 1fr 360px; gap: 24px; align-items: start;">
+      <div>
+        <div class="section" style="padding: 0 0 16px;">
+          <h2 style="font-size: 22px;">Common patterns</h2>
+          <p class="lead-2">Click any card to see what the pattern means and how professionals confirm it.</p>
+        </div>
+        <div id="pattern-grid" class="pattern-grid"></div>
+      </div>
+
+      <aside id="pattern-detail" style="position: sticky; top: 80px;">
+        <div class="card">
+          <h3 id="pd-title">Pick a pattern</h3>
+          <div id="pd-bias" class="card-sub" style="margin-bottom: 12px;"></div>
+          <div id="pd-vis" style="text-align: center; margin: 12px 0;"></div>
+          <h4 style="font-size: 13px; margin: 14px 0 4px;">What it usually means</h4>
+          <p id="pd-meaning" class="muted" style="font-size: 13px;">—</p>
+          <h4 style="font-size: 13px; margin: 14px 0 4px;">When it matters most</h4>
+          <p id="pd-when" class="muted" style="font-size: 13px;">—</p>
+          <h4 style="font-size: 13px; margin: 14px 0 4px;">When it fails</h4>
+          <p id="pd-fail" class="muted" style="font-size: 13px;">—</p>
+          <h4 style="font-size: 13px; margin: 14px 0 4px;">What pros look for to confirm</h4>
+          <p id="pd-confirm" class="muted" style="font-size: 13px;">—</p>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Pull a real chart -->
+    <section class="card" style="margin-top: 32px;">
+      <h3>📈 Try it on a real chart</h3>
+      <div class="card-sub">Type a ticker and we'll fetch the chart, mark any textbook patterns we found, and show you each one in context.</div>
+      <div style="display: flex; gap: 8px; margin-top: 14px;">
+        <input id="learn-ticker" class="search-input" type="text" placeholder="e.g. RELIANCE" style="height: 44px; max-width: 280px;" />
+        <button id="learn-go" class="search-go" style="position: static; height: 44px;">Build lesson</button>
+      </div>
+      <div id="learn-result" style="margin-top: 18px;"></div>
+    </section>
+  </main>
+
+  <footer class="disclaimer">
+    <div class="container">
+      <strong>Disclaimer:</strong> Patterns describe what <em>has</em> happened. They do not predict what will happen.
+      No pattern is a buy or sell signal. Educational content only — not investment advice.
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/learn.js"></script>
+</body>
+</html>

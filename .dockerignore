@@ -1,0 +1,32 @@
+# Keep the image lean
+.git
+.gitignore
+.venv
+venv
+env
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.egg-info
+.pytest_cache
+.mypy_cache
+.ruff_cache
+
+# Caches / runtime artefacts — re-created on first run
+data/cache/*
+data/processed/*
+data/raw/*
+
+# IDE / OS
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Streamlit + dev-only assets (not used by the FastAPI web UI)
+.streamlit
+
+# Notebooks, tests
+notebooks
+tests

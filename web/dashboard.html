@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stock Analysis — Stock Research Lab</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <script src="https://unpkg.com/lightweight-charts@4.1.3/dist/lightweight-charts.standalone.production.js"></script>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="/"><span class="brand-mark"></span><span>Stock Research Lab</span></a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/dashboard" class="active">Analyze</a>
+        <a href="/learn">Learn Charts</a>
+        <a href="/annual-report">Annual Report</a>
+        <a href="/glossary">Dictionary</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Compact search bar at top of dashboard -->
+  <div class="dash-header">
+    <div class="container">
+      <div class="search-box" style="max-width: 100%; margin: 0;">
+        <input id="search-input" class="search-input" type="text"
+          placeholder="Search a ticker (e.g. RELIANCE, TCS) — press Enter to analyze"
+          autocomplete="off" spellcheck="false" />
+        <button id="search-go" class="search-go">Analyze →</button>
+        <div id="search-suggestions" class="search-suggestions"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div id="loader" class="empty hidden">
+      <div class="spinner"></div>
+      <div style="margin-top: 12px;">Fetching market data, fundamentals, news, and the analyst workflow…</div>
+    </div>
+
+    <div id="placeholder" class="empty">
+      Type a ticker above and press Enter — for example
+      <strong>RELIANCE</strong>, <strong>TCS</strong>, <strong>INFY</strong>, or <strong>ITC</strong>.
+    </div>
+
+    <div id="error" class="empty hidden" style="color: var(--bear);"></div>
+
+    <main id="dash" class="hidden">
+      <!-- Header strip -->
+      <header class="dash-header" style="border:none; padding: 24px 0 8px;">
+        <h1 id="company-name">—</h1>
+        <div class="meta-row" id="meta-row"></div>
+      </header>
+
+      <!-- Headline stats -->
+      <section class="stats" id="stats"></section>
+
+      <!-- Stance explanation callout — visible across all tabs -->
+      <section id="stance-callout" class="card" style="border-color: var(--accent); box-shadow: var(--shadow-md); margin-bottom: 18px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 8px;">
+          <div>
+            <div class="muted" style="font-size: 12px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600;">Educational verdict</div>
+            <h3 id="stance-pretty" style="margin: 4px 0 0; font-size: 22px;">—</h3>
+            <div id="stance-headline" class="muted" style="margin-top: 4px;">—</div>
+          </div>
+          <div style="text-align: right;">
+            <div class="muted" style="font-size: 12px;">Confidence</div>
+            <div id="stance-confidence" style="font-weight: 600;">—</div>
+          </div>
+        </div>
+        <p id="stance-meaning" class="muted" style="font-size: 14px; line-height: 1.65; margin: 12px 0 0; padding: 12px 14px; background: var(--surface-2); border-radius: var(--r-sm);">—</p>
+        <button id="stance-toggle" class="tab" style="margin-top: 12px; padding: 6px 0; color: var(--accent); font-weight: 600;">▼ Show the logic behind this verdict</button>
+      </section>
+
+      <!-- Tabs -->
+      <nav class="tabs" id="tabs">
+        <button class="tab active" data-tab="overview">Overview</button>
+        <button class="tab" data-tab="why">Why this view?</button>
+        <button class="tab" data-tab="fundamentals">Fundamentals</button>
+        <button class="tab" data-tab="health">Health Score</button>
+        <button class="tab" data-tab="chart">Price &amp; Chart</button>
+        <button class="tab" data-tab="news">News &amp; Events</button>
+        <button class="tab" data-tab="workflow">How Pros Think</button>
+        <button class="tab" data-tab="summary">Beginner Summary</button>
+      </nav>
+
+      <!-- A. Overview / Snapshot -->
+      <section data-pane="overview">
+        <div class="card">
+          <h3>🏢 What this company does</h3>
+          <p id="biz-desc" class="muted">—</p>
+        </div>
+      </section>
+
+      <!-- Why this view? -->
+      <section data-pane="why" class="hidden">
+        <div class="card">
+          <h3>🧭 Why did the system pick this verdict?</h3>
+          <div class="card-sub" style="margin-bottom: 14px;">
+            The verdict is decided by a <strong>deterministic rules engine</strong> — not a guess
+            and not the AI. Below: the exact rules that fired, what would change the view,
+            and a reference of all five possible verdicts.
+          </div>
+
+          <h4 style="font-size: 14px; margin: 16px 0 8px;">📋 Rules the engine fired</h4>
+          <div id="why-rules" class="event-list"></div>
+
+          <h4 style="font-size: 14px; margin: 22px 0 8px;">🔄 What would change this view</h4>
+          <ul id="why-changes" class="qs" style="padding-left: 0; list-style: none; display: grid; gap: 6px;"></ul>
+
+          <h4 style="font-size: 14px; margin: 22px 0 8px;">⚖️ Points the engine collected</h4>
+          <div class="summary-grid">
+            <div class="summary-cell good">
+              <h5>🟢 Bullish points found</h5>
+              <ul id="why-bull"></ul>
+            </div>
+            <div class="summary-cell risky">
+              <h5>🔴 Bearish points found</h5>
+              <ul id="why-bear"></ul>
+            </div>
+          </div>
+
+          <h4 style="font-size: 14px; margin: 22px 0 8px;">📖 The five possible verdicts</h4>
+          <div id="why-definitions" class="health-grid"></div>
+        </div>
+      </section>
+
+      <!-- B. Fundamentals -->
+      <section data-pane="fundamentals" class="hidden">
+        <div class="card">
+          <h3>📊 Key fundamentals</h3>
+          <div class="card-sub" style="margin-bottom: 12px;">
+            These are the headline numbers — same data Zerodha and Groww show on a stock's page.
+            The third column tells you what each means for a beginner.
+          </div>
+          <table class="fund-table">
+            <thead><tr><th>Metric</th><th>Value</th><th>What it means for a beginner</th></tr></thead>
+            <tbody id="fund-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- C. Health scorecard -->
+      <section data-pane="health" class="hidden">
+        <div class="card">
+          <h3>🎯 Educational health scorecard</h3>
+          <div class="card-sub" style="margin-bottom: 14px;">
+            Seven dimensions a professional checks before forming any view. <strong>This is not buy/sell advice</strong> — it shows where the company looks strong, weak, or where you should investigate further.
+          </div>
+          <div id="health-grid" class="health-grid"></div>
+        </div>
+      </section>
+
+      <!-- D. Chart + indicators -->
+      <section data-pane="chart" class="hidden">
+        <div class="card">
+          <h3>📈 Price &amp; trend</h3>
+          <div class="card-sub" id="trend-narrative" style="margin-bottom: 14px;">—</div>
+          <div id="chart-container" style="width: 100%; height: 380px;"></div>
+        </div>
+        <div class="card" style="margin-top: 16px;">
+          <h3>Technical indicators (with translations)</h3>
+          <div id="indicators-rows" class="health-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));"></div>
+        </div>
+      </section>
+
+      <!-- E. News + upcoming events -->
+      <section data-pane="news" class="hidden">
+        <div class="card">
+          <h3>📅 Upcoming events</h3>
+          <div class="card-sub" style="margin-bottom: 14px;">
+            Forward-looking calendar — same data Zerodha &amp; Groww display. Knowing dates ahead is more useful than reacting after.
+          </div>
+          <div id="upcoming-events" class="event-list"></div>
+        </div>
+        <div class="card" style="margin-top: 16px;">
+          <h3>📰 Recent news &amp; what it might mean</h3>
+          <div id="news-list" class="event-list"></div>
+        </div>
+      </section>
+
+      <!-- F. Workflow -->
+      <section data-pane="workflow" class="hidden">
+        <div class="card">
+          <h3>🧠 How a professional reads this stock</h3>
+          <div class="card-sub" style="margin-bottom: 14px;">
+            Eight structured steps. Each step lists the questions a professional asks
+            and shows what those questions reveal — using <em>this</em> ticker's actual data.
+          </div>
+          <div id="workflow" class="workflow"></div>
+        </div>
+      </section>
+
+      <!-- G. Beginner summary -->
+      <section data-pane="summary" class="hidden">
+        <div class="card">
+          <h3>🎓 Beginner learning summary</h3>
+          <div class="card-sub" style="margin-bottom: 14px;">
+            What this case teaches you. <strong>Not advice</strong> — these are the dimensions
+            you should study deeper next time you look at a stock.
+          </div>
+          <div id="summary-body"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="disclaimer">
+    <div class="container">
+      <strong>Disclaimer:</strong> Educational content only — not investment advice.
+      Nothing here recommends buying, selling, holding, or any specific action.
+      Always consult a SEBI-registered financial advisor before investing.
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

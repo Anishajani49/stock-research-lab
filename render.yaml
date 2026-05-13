@@ -1,0 +1,35 @@
+# Render.com infrastructure-as-code config.
+# After pushing this repo to GitHub:
+#   1. Sign up at https://render.com (free)
+#   2. New + → "Blueprint" → connect your GitHub repo
+#   3. Render reads this file and creates the service
+#   4. First deploy takes ~5 min; subsequent deploys take ~2 min
+#
+# Free tier notes:
+#   - Service sleeps after 15 min idle (first request after takes ~30 s to wake)
+#   - 750 free hours/month
+#   - Upgrade to "Starter" ($7/mo) to keep it always-warm
+
+services:
+  - type: web
+    name: stock-research-lab
+    runtime: python
+    # Pin to a stable Python — the project requires >=3.11
+    pythonVersion: "3.11"
+    plan: free
+    region: singapore             # closest to Indian markets / yfinance latency
+    branch: main
+    # Render installs from requirements-prod.txt (slim deps, no Streamlit)
+    buildCommand: "pip install --upgrade pip && pip install -r requirements-prod.txt && pip install -e . --no-deps"
+    # Uvicorn binds to whatever PORT Render assigns
+    startCommand: "uvicorn app.api.server:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /api/health
+    autoDeploy: true              # redeploy on every push to `main`
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      - key: TZ
+        value: Asia/Kolkata
+      # If you ever want to wire a hosted Ollama, set OLLAMA_URL here
+      # - key: OLLAMA_URL
+      #   value: https://your-ollama-host

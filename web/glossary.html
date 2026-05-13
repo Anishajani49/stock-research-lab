@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Finance Dictionary — Stock Research Lab</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="/"><span class="brand-mark"></span><span>Stock Research Lab</span></a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/dashboard">Analyze</a>
+        <a href="/learn">Learn Charts</a>
+        <a href="/annual-report">Annual Report</a>
+        <a href="/glossary" class="active">Dictionary</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" style="padding: 56px 0 16px;">
+    <div class="container">
+      <span class="hero-eyebrow">Beginner Glossary</span>
+      <h1 style="font-size: 32px;">Finance terms, <span class="accent">decoded.</span></h1>
+      <p class="lead" style="font-size: 16px;">
+        Every term in plain English plus the practical reason a beginner should care.
+        Search by term, alias, or category.
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+    <input id="glossary-search" class="glossary-search" type="text" placeholder="Search — e.g. 'roe', 'p/e', 'macd', 'dividend'" />
+
+    <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 22px;">
+      <button class="tab active" data-cat="">All</button>
+      <button class="tab" data-cat="income">Income &amp; Profit</button>
+      <button class="tab" data-cat="valuation">Valuation</button>
+      <button class="tab" data-cat="quality">Quality &amp; Health</button>
+      <button class="tab" data-cat="ownership">Ownership &amp; Flows</button>
+      <button class="tab" data-cat="technicals">Technicals</button>
+      <button class="tab" data-cat="language">Market Language</button>
+    </div>
+
+    <div id="glossary-grid" class="glossary-grid"></div>
+    <div id="glossary-empty" class="empty hidden">No matches.</div>
+  </main>
+
+  <footer class="disclaimer">
+    <div class="container">
+      <strong>Disclaimer:</strong> Definitions are plain-English approximations meant for learners.
+      They are not legal or financial advice.
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/glossary.js"></script>
+</body>
+</html>

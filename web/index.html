@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stock Research Lab — Learn how to analyze stocks like a professional</title>
+  <meta name="description" content="A beginner-friendly, hands-on learning platform for new investors. Learn what professionals look at before analyzing a stock — fundamentals, technicals, news, sentiment, and chart patterns." />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="/">
+        <span class="brand-mark"></span>
+        <span>Stock Research Lab</span>
+      </a>
+      <div class="nav-links">
+        <a href="/" class="active">Home</a>
+        <a href="/dashboard">Analyze</a>
+        <a href="/learn">Learn Charts</a>
+        <a href="/annual-report">Annual Report</a>
+        <a href="/glossary">Dictionary</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <span class="hero-eyebrow">Educational · Not Investment Advice</span>
+      <h1>Learn how to analyze stocks <span class="accent">like a professional.</span></h1>
+      <p class="lead">
+        A hands-on platform for beginners. Type a ticker, and we'll walk you through what
+        analysts actually look at — fundamentals, technicals, news, and chart patterns —
+        with plain-English explanations next to every number.
+      </p>
+
+      <div class="search-box">
+        <input
+          id="search-input"
+          class="search-input"
+          type="text"
+          placeholder="Try a ticker — e.g. RELIANCE, TCS, INFY, ITC"
+          autocomplete="off"
+          spellcheck="false"
+        />
+        <button id="search-go" class="search-go">Analyze →</button>
+        <div id="search-suggestions" class="search-suggestions"></div>
+      </div>
+
+      <p class="muted" style="margin-top:14px; font-size:13px;">
+        Or browse the
+        <a href="/learn">candlestick learning lab</a> ·
+        <a href="/glossary">finance dictionary</a>
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="features">
+      <a class="feature-card" href="/dashboard">
+        <div class="feature-icon">📊</div>
+        <h3>Fundamentals</h3>
+        <p>P/E, ROE, debt, margins, growth — every metric explained in plain English with why professionals care.</p>
+      </a>
+      <a class="feature-card" href="/dashboard">
+        <div class="feature-icon">📈</div>
+        <h3>Technical Analysis</h3>
+        <p>Trend, moving averages, RSI, MACD, volume — with simple translations for every reading.</p>
+      </a>
+      <a class="feature-card" href="/dashboard">
+        <div class="feature-icon">📰</div>
+        <h3>News &amp; Sentiment</h3>
+        <p>Recent headlines tagged by category and tone — plus what each event might mean for the company.</p>
+      </a>
+      <a class="feature-card" href="/learn">
+        <div class="feature-icon">🕯️</div>
+        <h3>Candlestick Learning</h3>
+        <p>Interactive walk-through of doji, hammer, engulfing, morning star, and more — with mini visuals.</p>
+      </a>
+      <a class="feature-card" href="/annual-report">
+        <div class="feature-icon">📑</div>
+        <h3>Annual Report Lab</h3>
+        <p>Paste a public annual-report PDF and learn what each chapter means — chairman's letter, MD&amp;A, risks, auditor's note — and what pros look for in each.</p>
+      </a>
+      <a class="feature-card" href="/dashboard">
+        <div class="feature-icon">🧠</div>
+        <h3>Analyst Thinking</h3>
+        <p>An 8-step checklist of how a professional reads a stock — applied to the ticker you searched.</p>
+      </a>
+      <a class="feature-card" href="/glossary">
+        <div class="feature-icon">📖</div>
+        <h3>Finance Dictionary</h3>
+        <p>Searchable glossary of every term that appears in the dashboard. No jargon left unexplained.</p>
+      </a>
+    </section>
+
+    <section class="section" style="border-top: 1px solid var(--line); padding-top: 56px;">
+      <h2>How this is different from a tipping app</h2>
+      <p class="lead-2">
+        We never tell you to buy or sell. The goal is for you to understand the
+        <em>questions a professional asks</em> — and to see them answered with real
+        numbers from the company you searched. So next time someone gives you a stock
+        tip, you know what to check before believing them.
+      </p>
+
+      <div class="features" style="margin-top: 0;">
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Educational, not advisory</h3>
+          <p>No "target price". No "buy below ₹X". Just structured questions and the data needed to answer them.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🇮🇳</div>
+          <h3>Indian-market aware</h3>
+          <p>Fetches NSE/BSE prices, Indian news outlets, and the same calendar data Zerodha and Groww use.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧪</div>
+          <h3>Hands-on, not theoretical</h3>
+          <p>Every concept is shown with a real example from the ticker you typed. You learn by doing.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="disclaimer">
+    <div class="container">
+      <strong>Disclaimer:</strong> This site is for education only. It is not investment advice.
+      Nothing here tells you to buy, sell, hold, or set a price target.
+      Always consult a SEBI-registered financial advisor before making investment decisions.
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/landing.js"></script>
+</body>
+</html>
