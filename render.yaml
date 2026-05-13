@@ -14,8 +14,8 @@ services:
   - type: web
     name: stock-research-lab
     runtime: python
-    # Pin to a stable Python — the project requires >=3.11
-    pythonVersion: "3.11"
+    # Python version is pinned via the PYTHON_VERSION env var below
+    # (Render no longer supports the top-level pythonVersion key on services).
     plan: free
     region: singapore             # closest to Indian markets / yfinance latency
     branch: main
