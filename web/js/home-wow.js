@@ -1,69 +1,86 @@
 document.addEventListener('DOMContentLoaded', () => {
-  initScrollProgress();
-  initRevealObserver();
-  initStoryScroller();
-});
+  const scrollRoot = document.getElementById('neo-scroll');
+  if (!scrollRoot) return;
 
-function initScrollProgress() {
-  const fill = document.getElementById('wow-progress-fill');
-  if (!fill) return;
-  const onScroll = () => {
-    const h = document.documentElement;
-    const max = Math.max(1, h.scrollHeight - h.clientHeight);
-    const p = Math.min(100, Math.max(0, (h.scrollTop / max) * 100));
-    fill.style.width = `${p}%`;
+  const progressFill = document.getElementById('neo-progress-fill');
+  const riverScene = document.querySelector('[data-river-scene]');
+  const riverTrack = document.getElementById('neo-river-track');
+  const floaters = Array.from(document.querySelectorAll('.neo-float'));
+  const steps = Array.from(document.querySelectorAll('.neo-step'));
+  const meterFill = document.getElementById('neo-meter-fill');
+  const meterText = document.getElementById('neo-meter-text');
+  const sceneEls = Array.from(document.querySelectorAll('[data-scene]'));
+
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+
+  const sceneProgress = (el) => {
+    const r = el.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const total = r.height + vh;
+    const seen = vh - r.top;
+    return clamp(seen / total, 0, 1);
   };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-}
 
-function initRevealObserver() {
-  const items = Array.from(document.querySelectorAll('[data-reveal]'));
-  if (!items.length) return;
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
+  const setActiveStepFromScroll = () => {
+    if (!steps.length) return;
+    let best = steps[0];
+    let bestRatio = 0;
+    steps.forEach((s) => {
+      const rect = s.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const visible = Math.max(0, Math.min(rect.bottom, vh) - Math.max(rect.top, 0));
+      const ratio = visible / Math.max(1, rect.height);
+      if (ratio > bestRatio) {
+        bestRatio = ratio;
+        best = s;
       }
     });
-  }, { threshold: 0.16 });
-  items.forEach((el) => obs.observe(el));
-}
-
-function initStoryScroller() {
-  const chapters = Array.from(document.querySelectorAll('.story-chapter'));
-  if (!chapters.length) return;
-
-  const tag = document.getElementById('visual-tag');
-  const title = document.getElementById('visual-title');
-  const body = document.getElementById('visual-body');
-  const meter = document.getElementById('visual-meter-fill');
-  const meterLabel = document.getElementById('visual-meter-label');
-
-  const setActive = (el) => {
-    chapters.forEach((c) => c.classList.toggle('is-active', c === el));
-    const tagText = el.dataset.visualTag || '';
-    const titleText = el.dataset.visualTitle || '';
-    const bodyText = el.dataset.visualBody || '';
-    const meterPct = Number(el.dataset.visualMeter || 0);
-
-    if (tag) tag.textContent = tagText;
-    if (title) title.textContent = titleText;
-    if (body) body.textContent = bodyText;
-    if (meter) meter.style.width = `${meterPct}%`;
-    if (meterLabel) meterLabel.textContent = `Learning Progress ${meterPct}%`;
+    steps.forEach((s) => s.classList.toggle('is-active', s === best));
+    const step = Number(best.dataset.step || 1);
+    const pct = Math.round((step / steps.length) * 100);
+    if (meterFill) meterFill.style.width = `${pct}%`;
+    if (meterText) meterText.textContent = `Step ${step} / ${steps.length} · ${best.dataset.stepTitle || ''}`;
   };
 
-  const obs = new IntersectionObserver((entries) => {
-    const visible = entries
-      .filter((e) => e.isIntersecting)
-      .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-    if (visible[0]) setActive(visible[0].target);
-  }, {
-    threshold: [0.2, 0.4, 0.6, 0.8],
-    rootMargin: '-10% 0px -30% 0px',
-  });
+  const render = () => {
+    const maxScroll = Math.max(1, scrollRoot.scrollHeight - scrollRoot.clientHeight);
+    const globalProgress = clamp(scrollRoot.scrollTop / maxScroll, 0, 1);
+    if (progressFill) progressFill.style.width = `${globalProgress * 100}%`;
 
-  chapters.forEach((ch) => obs.observe(ch));
-  setActive(chapters[0]);
-}
+    // Scroll-reactive parallax depth
+    floaters.forEach((el) => {
+      const depth = Number(el.dataset.depth || 10);
+      const shift = (globalProgress - 0.5) * depth * 2;
+      el.style.setProperty('--depth-shift', `${shift.toFixed(2)}px`);
+    });
+
+    // Horizontal river driven by scene-local progress
+    if (riverScene && riverTrack) {
+      const p = sceneProgress(riverScene);
+      const shift = -p * 700;
+      riverTrack.style.setProperty('--river-shift', `${shift.toFixed(2)}px`);
+    }
+
+    setActiveStepFromScroll();
+
+    // Subtle scene emphasis
+    sceneEls.forEach((scene) => {
+      const p = sceneProgress(scene);
+      const alpha = 0.62 + (p * 0.38);
+      scene.style.opacity = String(clamp(alpha, 0.62, 1));
+    });
+  };
+
+  let raf = 0;
+  const tick = () => {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = 0;
+      render();
+    });
+  };
+
+  scrollRoot.addEventListener('scroll', tick, { passive: true });
+  window.addEventListener('resize', tick);
+  render();
+});
