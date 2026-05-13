@@ -338,15 +338,30 @@ body.daylight .cin-search .cin-search-go {
 
 .cin-search .cin-search-suggestions {
   position: absolute; top: calc(100% + 12px); left: 0; right: 0;
-  background: var(--c-bg-2, var(--c-surface));
+  background: #0e1322;          /* solid opaque fallback */
+  background: var(--c-bg-2);
   border: 1px solid var(--c-line);
   border-radius: var(--rr-lg);
-  box-shadow: 0 24px 60px rgba(0,0,0,.30);
-  backdrop-filter: blur(18px);
-  max-height: 380px; overflow-y: auto;
-  display: none; z-index: 30;
+  box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.04);
+  max-height: 320px; overflow-y: auto;
+  display: none; z-index: 80;
+}
+body.daylight .cin-search .cin-search-suggestions {
+  background: #fffdf9;
+  box-shadow: 0 24px 60px rgba(31,42,55,.18), 0 0 0 1px rgba(31,42,55,.06);
 }
 .cin-search .cin-search-suggestions.is-open { display: block; }
+
+/* When the suggestions panel is open, fade out anything visually competing
+   with it below the search slab. Pure CSS, no JS, graceful fallback. */
+.cin-hero-inner:has(.cin-search-suggestions.is-open) > .cin-hero-chips,
+.cin-hero-inner:has(.cin-search-suggestions.is-open) > .cin-hero-trust {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: opacity 260ms var(--ease-cinema),
+              transform 260ms var(--ease-cinema);
+}
 .cin-search .cin-search-suggestions .suggestion {
   padding: 14px 20px;
   border-bottom: 1px solid var(--c-line);
@@ -758,6 +773,48 @@ body.daylight .hero-eyebrow,
 body.daylight .nav { background: transparent; }
 
 /* -----------------------------------------------------------------------
+   PAGE TRANSITIONS
+
+   Two layers of treatment:
+     1. Modern browsers (Chrome 126+ / Edge 126+ / Safari TP) get native
+        cross-document view transitions — buttery snapshot crossfade
+        between full HTML documents, no SPA required.
+     2. Every other browser gets a simple body fade-in on each load,
+        which still reads as a smooth navigation since we kick off the
+        scroll-reveals immediately after.
+   ----------------------------------------------------------------------- */
+@view-transition { navigation: auto; }
+
+::view-transition-old(root) {
+  animation: cin-page-out 240ms cubic-bezier(.4, 0, .2, 1) both;
+}
+::view-transition-new(root) {
+  animation: cin-page-in 480ms cubic-bezier(.2, .8, .2, 1) both;
+}
+@keyframes cin-page-out {
+  to { opacity: 0; transform: translateY(-6px) scale(.994); filter: blur(2px); }
+}
+@keyframes cin-page-in {
+  from { opacity: 0; transform: translateY(10px) scale(.998); filter: blur(2px); }
+}
+
+/* The cinematic brand mark stays "in place" across navigations — same
+   logical element, smoothly morphing across the boundary. */
+.brand-mark { view-transition-name: brand-mark; }
+
+/* Lightweight fade-in on every page load. In browsers that support
+   view-transitions this is barely perceptible (and runs inside the
+   transition snapshot). In browsers without VT support, this is what
+   makes navigation still feel smooth instead of a hard flash. */
+@keyframes cin-body-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+body {
+  animation: cin-body-in 280ms cubic-bezier(.2, .8, .2, 1) both;
+}
+
+/* -----------------------------------------------------------------------
    Reduced-motion killswitch
    ----------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
@@ -769,4 +826,7 @@ body.daylight .nav { background: transparent; }
   }
   [data-cin-reveal] { opacity: 1 !important; transform: none !important; }
   .cin-aurora { animation: none !important; }
+  body { animation: none !important; }
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation: none !important; }
 }
