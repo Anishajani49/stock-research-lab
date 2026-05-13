@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Stock Research Lab — Immersive Mode</title>
-  <meta name="description" content="An immersive Indian stock learning experience with scene-based scrolling and mission-first analysis." />
+  <title>Stock Research Lab — Beautiful Finance Learning</title>
+  <meta name="description" content="A modern, beginner-friendly Indian stock and mutual fund learning platform with guided analysis and interactive practice." />
   <link rel="stylesheet" href="/css/styles.css" />
   <link rel="stylesheet" href="/css/home-wow.css" />
 </head>
-<body class="neo-home">
-  <div class="neo-progress"><div id="neo-progress-fill"></div></div>
-  <div class="neo-bg-grid"></div>
-  <div class="neo-bg-glow neo-bg-glow-a"></div>
-  <div class="neo-bg-glow neo-bg-glow-b"></div>
+<body class="atelier-home">
+  <div class="atelier-progress"><div id="atelier-progress-fill"></div></div>
+  <div class="mesh mesh-a"></div>
+  <div class="mesh mesh-b"></div>
+  <div class="grain"></div>
 
-  <nav class="nav neo-nav">
+  <nav class="nav atelier-nav">
     <div class="container nav-inner">
       <a class="brand" href="/">
         <span class="brand-mark"></span>
@@ -31,132 +31,169 @@
     </div>
   </nav>
 
-  <main id="neo-scroll" class="neo-scroll">
-    <section class="neo-scene neo-scene-hero" data-scene>
-      <div class="container">
-        <div class="neo-hero-grid">
-          <div class="neo-hero-copy">
-            <span class="neo-chip">Immersive Learning Mode · Educational Only</span>
-            <h1>Scroll like a game.<br />Think like an analyst.</h1>
-            <p>
-              This is a scene-based finance learning experience for Indian markets.
-              No price targets. No buy/sell noise. Just evidence-first skill building.
-            </p>
-            <div class="search-box neo-search">
-              <input
-                id="search-input"
-                class="search-input"
-                type="text"
-                placeholder="Enter ticker to enter the lab — RELIANCE, INFY, TCS"
-                autocomplete="off"
-                spellcheck="false"
-              />
-              <button id="search-go" class="search-go">Analyze →</button>
-              <div id="search-suggestions" class="search-suggestions"></div>
-            </div>
-            <div class="neo-tags">
-              <a href="/quest">Play Quest</a>
-              <a href="/learn">Candlestick Drills</a>
-              <a href="/annual-report">Annual Report Lab</a>
-            </div>
-          </div>
+  <header class="atelier-hero">
+    <div class="container atelier-hero-grid">
+      <div class="reveal" data-reveal>
+        <span class="atelier-pill">Educational Platform · Indian Markets · No Investment Advice</span>
+        <h1>Learn markets with<br /><span>taste, depth, and clarity.</span></h1>
+        <p>
+          A beautiful finance learning studio for Indian stocks and mutual funds.
+          Understand fundamentals, technicals, risk, candlesticks, and sentiment with guided context.
+        </p>
 
-          <div class="neo-hero-board neo-float" data-depth="18">
-            <h3>Live Analyst Board</h3>
-            <div class="neo-board-grid">
-              <article><small>Risk</small><strong>Radar</strong><p>Volatility, momentum and evidence quality.</p></article>
-              <article><small>News</small><strong>Timeline</strong><p>Events classified into meaningful categories.</p></article>
-              <article><small>Fundamentals</small><strong>Decoded</strong><p>Every metric translated to beginner language.</p></article>
-              <article><small>Chart</small><strong>Drills</strong><p>Pattern training with real market candles.</p></article>
-            </div>
-          </div>
+        <div class="search-box atelier-search">
+          <input
+            id="search-input"
+            class="search-input"
+            type="text"
+            placeholder="Enter ticker — RELIANCE, TCS, INFY, ITC"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button id="search-go" class="search-go">Analyze →</button>
+          <div id="search-suggestions" class="search-suggestions"></div>
+        </div>
+
+        <div class="atelier-links">
+          <a href="/quest">Play Quest Mode</a>
+          <a href="/learn">Candlestick Learning</a>
+          <a href="/annual-report">Annual Report Lab</a>
         </div>
       </div>
+
+      <div class="hero-art reveal" data-reveal>
+        <div class="hero-art-card top">
+          <small>Risk Pulse</small>
+          <strong>Calibrated</strong>
+          <p>Momentum, volatility, and evidence confidence mapped for beginners.</p>
+        </div>
+        <div class="hero-art-card middle">
+          <small>Analysis Journey</small>
+          <strong>Step-by-step</strong>
+          <p>From business understanding to “should I study this stock further?”</p>
+        </div>
+        <div class="hero-art-card bottom">
+          <small>Candlestick Drills</small>
+          <strong>Interactive</strong>
+          <p>Pattern practice using real chart context instead of static textbook images.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="atelier-stats reveal" data-reveal>
+    <div class="container atelier-stats-grid">
+      <article><span>Learning Lens</span><strong>Fundamentals</strong><p>Growth, profitability, valuation, debt, cash quality.</p></article>
+      <article><span>Learning Lens</span><strong>Technicals</strong><p>Trend, RSI, MACD, volatility, and pattern context.</p></article>
+      <article><span>Learning Lens</span><strong>Events</strong><p>News categorized into regulatory, legal, earnings, and more.</p></article>
+      <article><span>Learning Lens</span><strong>Verdict</strong><p>Worth studying further, wait, or risk appears elevated.</p></article>
+    </div>
+  </section>
+
+  <main class="container atelier-main">
+    <section class="atelier-theater">
+      <div class="theater-copy">
+        <h2 class="reveal" data-reveal>Scroll-through analysis theater</h2>
+        <p class="reveal" data-reveal>
+          As you scroll, the right panel updates like a live instructor.
+          You are not reading a static dashboard. You are moving through a professional thought process.
+        </p>
+
+        <article class="theater-step is-active reveal" data-reveal data-step
+          data-title="1. Understand the business"
+          data-body="Start by decoding what the company sells, who pays for it, and how durable that demand is."
+          data-color="var(--tone-coral)">
+          <span>01</span>
+          <h3>Understand the business</h3>
+          <p>Can you explain this company in plain language without jargon?</p>
+        </article>
+
+        <article class="theater-step reveal" data-reveal data-step
+          data-title="2. Pressure-test fundamentals"
+          data-body="Growth, margins, debt, and valuation are interpreted together to avoid one-metric traps."
+          data-color="var(--tone-sun)">
+          <span>02</span>
+          <h3>Pressure-test fundamentals</h3>
+          <p>Strong narratives fail when the financial base is weak.</p>
+        </article>
+
+        <article class="theater-step reveal" data-reveal data-step
+          data-title="3. Separate signal from noise"
+          data-body="Events are ranked and classified so market noise does not drown stock-specific developments."
+          data-color="var(--tone-teal)">
+          <span>03</span>
+          <h3>Separate signal from noise</h3>
+          <p>Not all headlines deserve equal weight.</p>
+        </article>
+
+        <article class="theater-step reveal" data-reveal data-step
+          data-title="4. Read chart context"
+          data-body="Candlesticks and indicators are useful only when interpreted in trend and volume context."
+          data-color="var(--tone-blue)">
+          <span>04</span>
+          <h3>Read chart context</h3>
+          <p>Patterns are clues, not commands.</p>
+        </article>
+
+        <article class="theater-step reveal" data-reveal data-step
+          data-title="5. Decide: worth deeper study?"
+          data-body="Output is educational: worth studying further, wait for evidence, or risk appears elevated."
+          data-color="var(--tone-ink)">
+          <span>05</span>
+          <h3>Decide: worth deeper study?</h3>
+          <p>No buy/sell language. Only transparent learning verdicts.</p>
+        </article>
+      </div>
+
+      <aside class="theater-stage reveal" data-reveal>
+        <small id="stage-kicker">Live Guidance</small>
+        <h3 id="stage-title">1. Understand the business</h3>
+        <p id="stage-body">Start by decoding what the company sells, who pays for it, and how durable that demand is.</p>
+        <div class="stage-meter-track">
+          <div id="stage-meter-fill"></div>
+        </div>
+        <div id="stage-meter-text">Step 1 / 5</div>
+        <div class="stage-cta-row">
+          <a href="/dashboard">Open Analysis</a>
+          <a href="/quest">Play Quest</a>
+        </div>
+      </aside>
     </section>
 
-    <section class="neo-scene neo-scene-river" data-scene data-river-scene>
-      <div class="container">
-        <header class="neo-scene-head">
-          <small>Scene 2</small>
-          <h2>The Signal River</h2>
-          <p>As you scroll, signals move across the board based on importance, not noise.</p>
-        </header>
-      </div>
-      <div class="neo-river-window">
-        <div id="neo-river-track" class="neo-river-track">
-          <article class="neo-river-card"><span>RELIANCE</span><strong>Risk appears elevated</strong><p>Regulatory and momentum conflict.</p></article>
-          <article class="neo-river-card"><span>TCS</span><strong>Worth studying further</strong><p>Trend and quality look aligned.</p></article>
-          <article class="neo-river-card"><span>INFY</span><strong>Needs more evidence</strong><p>Signal quality too thin right now.</p></article>
-          <article class="neo-river-card"><span>HDFCBANK</span><strong>Momentum improving</strong><p>Price/volume behavior strengthening.</p></article>
-          <article class="neo-river-card"><span>ITC</span><strong>What to watch next</strong><p>Earnings date may shift the picture.</p></article>
-          <article class="neo-river-card"><span>SBIN</span><strong>Candlestick challenge ready</strong><p>Pattern context is now available.</p></article>
+    <section class="atelier-mosaic">
+      <a href="/quest" class="mosaic-card wide reveal" data-reveal>
+        <div>
+          <small>Game 1</small>
+          <h3>Stock Market Quest</h3>
+          <p>Mission-based learning with progress mechanics and practical judgement training.</p>
         </div>
-      </div>
-    </section>
-
-    <section class="neo-scene neo-scene-steps" data-scene>
-      <div class="container neo-steps-wrap">
-        <aside class="neo-steps-pillar neo-float" data-depth="12">
-          <small>Learning Path</small>
-          <h3>5-Step Analysis Journey</h3>
-          <div class="neo-meter">
-            <div id="neo-meter-fill"></div>
-          </div>
-          <div id="neo-meter-text">Step 1 / 5 · Understand the business</div>
-        </aside>
-
-        <div class="neo-steps-list">
-          <article class="neo-step is-active" data-step="1" data-step-title="Understand the business">
-            <span>01</span>
-            <h4>Understand The Business</h4>
-            <p>If you cannot explain how the company makes money, stop and learn before judging the stock.</p>
-          </article>
-          <article class="neo-step" data-step="2" data-step-title="Check fundamentals deeply">
-            <span>02</span>
-            <h4>Check Fundamentals Deeply</h4>
-            <p>Growth, profitability, debt and valuation are interpreted as a connected system, not isolated numbers.</p>
-          </article>
-          <article class="neo-step" data-step="3" data-step-title="Map events to consequences">
-            <span>03</span>
-            <h4>Map Events To Consequences</h4>
-            <p>News is converted into categories so you can separate story-changing events from hype.</p>
-          </article>
-          <article class="neo-step" data-step="4" data-step-title="Read chart context">
-            <span>04</span>
-            <h4>Read Chart Context</h4>
-            <p>Trend, RSI, MACD, and candlesticks become a practical checklist for what to watch next.</p>
-          </article>
-          <article class="neo-step" data-step="5" data-step-title="Decide if it's worth deeper study">
-            <span>05</span>
-            <h4>Decide: Worth Studying Further?</h4>
-            <p>Educational verdict only: worth deeper study, wait for evidence, or risk appears elevated.</p>
-          </article>
+        <span>Launch</span>
+      </a>
+      <a href="/quest" class="mosaic-card reveal" data-reveal>
+        <div>
+          <small>Game 2</small>
+          <h3>Candlestick Pattern Game</h3>
+          <p>Identify, validate, and learn pattern context on real bars.</p>
         </div>
-      </div>
-    </section>
-
-    <section class="neo-scene neo-scene-final" data-scene>
-      <div class="container neo-final-wrap">
-        <h2>Choose your experience.</h2>
-        <p>One platform, two high-engagement game loops built for better investing judgement.</p>
-        <div class="neo-final-grid">
-          <a href="/quest" class="neo-final-card">
-            <h3>Game 1: Stock Market Quest</h3>
-            <p>Mission-based learning with XP-style progression.</p>
-            <span>Start Quest</span>
-          </a>
-          <a href="/quest" class="neo-final-card">
-            <h3>Game 2: Candlestick Pattern Game</h3>
-            <p>Spot, classify, and understand patterns on real chart bars.</p>
-            <span>Play Candlestick Game</span>
-          </a>
+        <span>Play</span>
+      </a>
+      <a href="/annual-report" class="mosaic-card reveal" data-reveal>
+        <div>
+          <small>Deep Reading</small>
+          <h3>Annual Report Lab</h3>
+          <p>Learn how professionals scan filings for red flags and conviction signals.</p>
         </div>
-        <div class="neo-foot-note">
-          Educational content only — not investment advice.
-        </div>
-      </div>
+        <span>Open</span>
+      </a>
     </section>
   </main>
+
+  <footer class="disclaimer atelier-disclaimer">
+    <div class="container">
+      <strong>Disclaimer:</strong> Educational content only. Not financial advice.
+      No buy/sell calls, no target prices, no guaranteed returns.
+    </div>
+  </footer>
 
   <script src="/js/api.js"></script>
   <script src="/js/landing.js"></script>

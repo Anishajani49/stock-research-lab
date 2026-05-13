@@ -1,86 +1,67 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const scrollRoot = document.getElementById('neo-scroll');
-  if (!scrollRoot) return;
-
-  const progressFill = document.getElementById('neo-progress-fill');
-  const riverScene = document.querySelector('[data-river-scene]');
-  const riverTrack = document.getElementById('neo-river-track');
-  const floaters = Array.from(document.querySelectorAll('.neo-float'));
-  const steps = Array.from(document.querySelectorAll('.neo-step'));
-  const meterFill = document.getElementById('neo-meter-fill');
-  const meterText = document.getElementById('neo-meter-text');
-  const sceneEls = Array.from(document.querySelectorAll('[data-scene]'));
-
-  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
-
-  const sceneProgress = (el) => {
-    const r = el.getBoundingClientRect();
-    const vh = window.innerHeight;
-    const total = r.height + vh;
-    const seen = vh - r.top;
-    return clamp(seen / total, 0, 1);
-  };
-
-  const setActiveStepFromScroll = () => {
-    if (!steps.length) return;
-    let best = steps[0];
-    let bestRatio = 0;
-    steps.forEach((s) => {
-      const rect = s.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const visible = Math.max(0, Math.min(rect.bottom, vh) - Math.max(rect.top, 0));
-      const ratio = visible / Math.max(1, rect.height);
-      if (ratio > bestRatio) {
-        bestRatio = ratio;
-        best = s;
-      }
-    });
-    steps.forEach((s) => s.classList.toggle('is-active', s === best));
-    const step = Number(best.dataset.step || 1);
-    const pct = Math.round((step / steps.length) * 100);
-    if (meterFill) meterFill.style.width = `${pct}%`;
-    if (meterText) meterText.textContent = `Step ${step} / ${steps.length} · ${best.dataset.stepTitle || ''}`;
-  };
-
-  const render = () => {
-    const maxScroll = Math.max(1, scrollRoot.scrollHeight - scrollRoot.clientHeight);
-    const globalProgress = clamp(scrollRoot.scrollTop / maxScroll, 0, 1);
-    if (progressFill) progressFill.style.width = `${globalProgress * 100}%`;
-
-    // Scroll-reactive parallax depth
-    floaters.forEach((el) => {
-      const depth = Number(el.dataset.depth || 10);
-      const shift = (globalProgress - 0.5) * depth * 2;
-      el.style.setProperty('--depth-shift', `${shift.toFixed(2)}px`);
-    });
-
-    // Horizontal river driven by scene-local progress
-    if (riverScene && riverTrack) {
-      const p = sceneProgress(riverScene);
-      const shift = -p * 700;
-      riverTrack.style.setProperty('--river-shift', `${shift.toFixed(2)}px`);
-    }
-
-    setActiveStepFromScroll();
-
-    // Subtle scene emphasis
-    sceneEls.forEach((scene) => {
-      const p = sceneProgress(scene);
-      const alpha = 0.62 + (p * 0.38);
-      scene.style.opacity = String(clamp(alpha, 0.62, 1));
-    });
-  };
-
-  let raf = 0;
-  const tick = () => {
-    if (raf) return;
-    raf = requestAnimationFrame(() => {
-      raf = 0;
-      render();
-    });
-  };
-
-  scrollRoot.addEventListener('scroll', tick, { passive: true });
-  window.addEventListener('resize', tick);
-  render();
+  initProgressBar();
+  initReveal();
+  initTheater();
 });
+
+function initProgressBar() {
+  const fill = document.getElementById('atelier-progress-fill');
+  if (!fill) return;
+  const update = () => {
+    const h = document.documentElement;
+    const max = Math.max(1, h.scrollHeight - h.clientHeight);
+    const pct = Math.min(100, Math.max(0, (h.scrollTop / max) * 100));
+    fill.style.width = `${pct}%`;
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
+function initReveal() {
+  const nodes = Array.from(document.querySelectorAll('[data-reveal]'));
+  if (!nodes.length) return;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add('is-visible');
+    });
+  }, { threshold: 0.18 });
+  nodes.forEach((n) => obs.observe(n));
+}
+
+function initTheater() {
+  const steps = Array.from(document.querySelectorAll('[data-step]'));
+  if (!steps.length) return;
+
+  const stageTitle = document.getElementById('stage-title');
+  const stageBody = document.getElementById('stage-body');
+  const meterFill = document.getElementById('stage-meter-fill');
+  const meterText = document.getElementById('stage-meter-text');
+
+  const setActive = (el) => {
+    steps.forEach((s) => s.classList.toggle('is-active', s === el));
+    const idx = steps.indexOf(el) + 1;
+    const total = steps.length;
+    const pct = Math.round((idx / total) * 100);
+    if (stageTitle) stageTitle.textContent = el.dataset.title || '';
+    if (stageBody) stageBody.textContent = el.dataset.body || '';
+    if (meterFill) {
+      meterFill.style.width = `${pct}%`;
+      if (el.dataset.color) meterFill.style.background =
+        `linear-gradient(90deg, ${el.dataset.color}, var(--tone-sun), var(--tone-teal))`;
+    }
+    if (meterText) meterText.textContent = `Step ${idx} / ${total}`;
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter((e) => e.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    if (visible[0]) setActive(visible[0].target);
+  }, {
+    threshold: [0.25, 0.45, 0.65],
+    rootMargin: '-18% 0px -32% 0px',
+  });
+
+  steps.forEach((s) => observer.observe(s));
+  setActive(steps[0]);
+}
