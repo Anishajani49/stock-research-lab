@@ -1,0 +1,402 @@
+.wow-page {
+  background: radial-gradient(circle at 10% 10%, #f5f7ff 0%, #eef4ff 44%, #e8f1ff 100%);
+  overflow-x: hidden;
+}
+
+.wow-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(148, 163, 184, 0.22);
+  z-index: 120;
+}
+#wow-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #4f46e5, #0ea5e9, #14b8a6);
+  transition: width .1s linear;
+}
+
+.wow-noise {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .2;
+  background-image: radial-gradient(rgba(148, 163, 184, 0.25) 0.6px, transparent 0.6px);
+  background-size: 3px 3px;
+}
+.wow-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(56px);
+  z-index: 0;
+  pointer-events: none;
+  animation: wowFloat 10s ease-in-out infinite;
+}
+.wow-orb-a {
+  width: 340px;
+  height: 340px;
+  background: rgba(79, 70, 229, 0.30);
+  left: -110px;
+  top: -80px;
+}
+.wow-orb-b {
+  width: 420px;
+  height: 420px;
+  background: rgba(14, 165, 233, 0.24);
+  right: -140px;
+  top: 20%;
+  animation-delay: .8s;
+}
+.wow-orb-c {
+  width: 300px;
+  height: 300px;
+  background: rgba(20, 184, 166, 0.18);
+  left: 36%;
+  bottom: -120px;
+  animation-delay: 1.2s;
+}
+@keyframes wowFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(24px); }
+}
+
+.wow-nav { position: sticky; top: 4px; z-index: 90; }
+.wow-nav .nav-inner { height: 64px; }
+
+.wow-hero {
+  position: relative;
+  z-index: 1;
+  padding: 80px 0 54px;
+}
+.wow-hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 24px;
+  align-items: center;
+}
+.wow-pill {
+  display: inline-flex;
+  border: 1px solid rgba(79, 70, 229, 0.35);
+  border-radius: 999px;
+  padding: 7px 12px;
+  color: #312e81;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  background: rgba(79, 70, 229, 0.10);
+}
+.wow-hero h1 {
+  margin: 14px 0 10px;
+  font-family: var(--font-display);
+  font-size: clamp(36px, 6vw, 68px);
+  line-height: 1.02;
+  letter-spacing: -.035em;
+}
+.wow-hero h1 span {
+  background: linear-gradient(125deg, #4f46e5, #0ea5e9 52%, #14b8a6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.wow-hero p {
+  max-width: 680px;
+  font-size: 18px;
+  color: #334155;
+  margin: 0;
+}
+
+.wow-search {
+  margin: 24px 0 0;
+  max-width: 640px;
+}
+.wow-search .search-input {
+  height: 62px;
+  border-radius: 16px;
+  border-color: rgba(79, 70, 229, 0.22);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.10);
+}
+.wow-search .search-go {
+  height: 46px;
+  top: 8px;
+  right: 8px;
+  border-radius: 12px;
+  font-weight: 700;
+  background: linear-gradient(130deg, #4338ca, #0369a1);
+}
+.wow-quick-links {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.wow-quick-links a {
+  border: 1px solid rgba(100, 116, 139, 0.30);
+  border-radius: 999px;
+  padding: 6px 12px;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.hero-cockpit {
+  border: 1px solid rgba(79, 70, 229, 0.26);
+  background: rgba(11, 16, 32, 0.90);
+  color: #dbe7ff;
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 28px 52px rgba(15, 23, 42, 0.25);
+}
+.hero-cockpit-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #93c5fd;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+.hero-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #21d19f;
+  box-shadow: 0 0 0 8px rgba(33, 209, 159, 0.13);
+}
+.hero-cockpit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.hero-cockpit-grid article {
+  border: 1px solid rgba(148, 163, 184, 0.26);
+  border-radius: 14px;
+  padding: 12px;
+  background: rgba(15, 23, 42, 0.62);
+}
+.hero-cockpit-grid h4 {
+  margin: 0 0 4px;
+  color: #bfdbfe;
+  font-size: 13px;
+}
+.hero-cockpit-grid strong {
+  font-size: 24px;
+  letter-spacing: -.02em;
+}
+.hero-cockpit-grid p {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+.wow-tape-wrap {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  display: flex;
+  gap: 12px;
+  border-top: 1px solid rgba(148, 163, 184, 0.25);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(255, 255, 255, 0.74);
+  padding: 11px 0;
+}
+.wow-tape-track {
+  min-width: 100%;
+  flex-shrink: 0;
+  display: flex;
+  gap: 12px;
+  animation: tapeRun 22s linear infinite;
+}
+.wow-tape-track div {
+  white-space: nowrap;
+  border: 1px solid rgba(79, 70, 229, 0.20);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #312e81;
+  background: rgba(79, 70, 229, 0.08);
+}
+@keyframes tapeRun {
+  from { transform: translateX(0%); }
+  to { transform: translateX(-100%); }
+}
+
+.wow-main {
+  position: relative;
+  z-index: 1;
+  padding: 60px 0 34px;
+}
+.story-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 18px;
+}
+.story-rail {
+  display: grid;
+  gap: 14px;
+}
+.story-chapter {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06);
+  padding: 16px;
+  transition: border-color .16s ease, transform .16s ease, box-shadow .16s ease;
+}
+.story-chapter.is-active {
+  border-color: rgba(79, 70, 229, 0.45);
+  box-shadow: 0 20px 36px rgba(79, 70, 229, 0.14);
+  transform: translateY(-1px);
+}
+.story-chapter span {
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  background: rgba(79, 70, 229, 0.14);
+  color: #3730a3;
+  font-size: 12px;
+  font-weight: 700;
+}
+.story-chapter h3 {
+  margin: 10px 0 6px;
+  font-size: 22px;
+  letter-spacing: -.02em;
+}
+.story-chapter p {
+  margin: 0;
+  font-size: 15px;
+  color: #475569;
+}
+
+.story-visual {
+  position: sticky;
+  top: 88px;
+  border: 1px solid rgba(79, 70, 229, 0.28);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.80);
+  box-shadow: 0 18px 34px rgba(15, 23, 42, 0.10);
+  height: fit-content;
+  padding: 16px;
+}
+.story-visual small {
+  color: #4338ca;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: 11px;
+  font-weight: 700;
+}
+.story-visual h3 {
+  margin: 6px 0 6px;
+  font-size: 28px;
+  line-height: 1.08;
+}
+.story-visual p {
+  margin: 0;
+  color: #475569;
+}
+.visual-meter-wrap {
+  margin: 18px 0 14px;
+}
+.visual-meter-track {
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.24);
+  overflow: hidden;
+}
+#visual-meter-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4f46e5, #0ea5e9);
+  transition: width .32s ease;
+}
+#visual-meter-label {
+  margin-top: 7px;
+  font-size: 12px;
+  color: #334155;
+  font-weight: 600;
+}
+.visual-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.visual-actions a {
+  display: grid;
+  place-items: center;
+  height: 40px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 700;
+}
+.visual-actions a:first-child {
+  background: #0f172a;
+  color: #f8fafc;
+}
+.visual-actions a:last-child {
+  border: 1px solid rgba(79, 70, 229, 0.35);
+  color: #3730a3;
+}
+
+.wow-panels {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.wow-panel {
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.78);
+  padding: 16px;
+}
+.wow-panel h3 {
+  margin: 0 0 8px;
+  font-size: 21px;
+}
+.wow-panel p {
+  margin: 0;
+  color: #475569;
+}
+.wow-panel a {
+  margin-top: 14px;
+  display: inline-flex;
+  font-weight: 700;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 1080px) {
+  .wow-hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .story-layout {
+    grid-template-columns: 1fr;
+  }
+  .story-visual {
+    position: static;
+  }
+}
+@media (max-width: 760px) {
+  .wow-hero { padding: 52px 0 36px; }
+  .wow-hero p { font-size: 16px; }
+  .hero-cockpit-grid { grid-template-columns: 1fr; }
+  .wow-panels { grid-template-columns: 1fr; }
+}

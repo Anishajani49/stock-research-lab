@@ -3,12 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Stock Research Lab — Learn how to analyze stocks like a professional</title>
-  <meta name="description" content="A beginner-friendly, hands-on learning platform for new investors. Learn what professionals look at before analyzing a stock — fundamentals, technicals, news, sentiment, and chart patterns." />
+  <title>Stock Research Lab — Interactive Finance Learning</title>
+  <meta name="description" content="An immersive, beginner-first Indian stock learning platform with mission-based analysis and candlestick games." />
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/home-wow.css" />
 </head>
-<body>
-  <nav class="nav">
+<body class="wow-page">
+  <div class="wow-progress"><div id="wow-progress-fill"></div></div>
+  <div class="wow-noise"></div>
+  <div class="wow-orb wow-orb-a"></div>
+  <div class="wow-orb wow-orb-b"></div>
+  <div class="wow-orb wow-orb-c"></div>
+
+  <nav class="nav wow-nav">
     <div class="container nav-inner">
       <a class="brand" href="/">
         <span class="brand-mark"></span>
@@ -25,119 +32,187 @@
     </div>
   </nav>
 
-  <header class="hero">
-    <div class="container">
-      <span class="hero-eyebrow">Educational · Not Investment Advice</span>
-      <h1>Learn how to analyze stocks <span class="accent">like a professional.</span></h1>
-      <p class="lead">
-        A hands-on platform for beginners. Type a ticker, and we'll walk you through what
-        analysts actually look at — fundamentals, technicals, news, and chart patterns —
-        with plain-English explanations next to every number.
-      </p>
+  <header class="wow-hero">
+    <div class="container wow-hero-grid">
+      <div>
+        <span class="wow-pill">Educational Platform · Indian Markets · Not Investment Advice</span>
+        <h1>This is not a dashboard.<br />It is a <span>live stock-learning simulator.</span></h1>
+        <p>
+          Learn how professionals think using real NSE/BSE data, real events, and guided missions.
+          No buy/sell calls. Just better judgement.
+        </p>
 
-      <div class="search-box">
-        <input
-          id="search-input"
-          class="search-input"
-          type="text"
-          placeholder="Try a ticker — e.g. RELIANCE, TCS, INFY, ITC"
-          autocomplete="off"
-          spellcheck="false"
-        />
-        <button id="search-go" class="search-go">Analyze →</button>
-        <div id="search-suggestions" class="search-suggestions"></div>
+        <div class="search-box wow-search">
+          <input
+            id="search-input"
+            class="search-input"
+            type="text"
+            placeholder="Start with a ticker — RELIANCE, TCS, INFY, ITC"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button id="search-go" class="search-go">Enter Lab →</button>
+          <div id="search-suggestions" class="search-suggestions"></div>
+        </div>
+
+        <div class="wow-quick-links">
+          <a href="/quest">Play Quest Mode</a>
+          <a href="/learn">Candlestick Learning</a>
+          <a href="/annual-report">Annual Report Lab</a>
+        </div>
       </div>
 
-      <p class="muted" style="margin-top:14px; font-size:13px;">
-        Or browse the
-        <a href="/learn">candlestick learning lab</a> ·
-        <a href="/glossary">finance dictionary</a>
-      </p>
+      <div class="hero-cockpit reveal" data-reveal>
+        <div class="hero-cockpit-head">
+          <span class="hero-dot"></span>
+          <span>Analyst Cockpit</span>
+        </div>
+        <div class="hero-cockpit-grid">
+          <article>
+            <h4>Risk Pulse</h4>
+            <strong>Live</strong>
+            <p>Volatility, momentum conflict, and evidence-quality signals.</p>
+          </article>
+          <article>
+            <h4>News Map</h4>
+            <strong>Ranked</strong>
+            <p>Events sorted by relevance, not noise-heavy headline order.</p>
+          </article>
+          <article>
+            <h4>Fundamentals</h4>
+            <strong>Translated</strong>
+            <p>Plain-English interpretation beside every key metric.</p>
+          </article>
+          <article>
+            <h4>Candles</h4>
+            <strong>Interactive</strong>
+            <p>Pattern detection + practice rounds tied to real chart bars.</p>
+          </article>
+        </div>
+      </div>
     </div>
   </header>
 
-  <main class="container">
-    <section class="features">
-      <a class="feature-card" href="/dashboard">
-        <div class="feature-icon">📊</div>
-        <h3>Fundamentals</h3>
-        <p>P/E, ROE, debt, margins, growth — every metric explained in plain English with why professionals care.</p>
-      </a>
-      <a class="feature-card" href="/dashboard">
-        <div class="feature-icon">📈</div>
-        <h3>Technical Analysis</h3>
-        <p>Trend, moving averages, RSI, MACD, volume — with simple translations for every reading.</p>
-      </a>
-      <a class="feature-card" href="/dashboard">
-        <div class="feature-icon">📰</div>
-        <h3>News &amp; Sentiment</h3>
-        <p>Recent headlines tagged by category and tone — plus what each event might mean for the company.</p>
-      </a>
-      <a class="feature-card" href="/learn">
-        <div class="feature-icon">🕯️</div>
-        <h3>Candlestick Learning</h3>
-        <p>Interactive walk-through of doji, hammer, engulfing, morning star, and more — with mini visuals.</p>
-      </a>
-      <a class="feature-card" href="/quest">
-        <div class="feature-icon">🎮</div>
-        <h3>Quest Mode</h3>
-        <p>Play a 5-mission stock-learning game, then unlock a candlestick pattern challenge on real chart data.</p>
-      </a>
-      <a class="feature-card" href="/annual-report">
-        <div class="feature-icon">📑</div>
-        <h3>Annual Report Lab</h3>
-        <p>Paste a public annual-report PDF and learn what each chapter means — chairman's letter, MD&amp;A, risks, auditor's note — and what pros look for in each.</p>
-      </a>
-      <a class="feature-card" href="/dashboard">
-        <div class="feature-icon">🧠</div>
-        <h3>Analyst Thinking</h3>
-        <p>An 8-step checklist of how a professional reads a stock — applied to the ticker you searched.</p>
-      </a>
-      <a class="feature-card" href="/glossary">
-        <div class="feature-icon">📖</div>
-        <h3>Finance Dictionary</h3>
-        <p>Searchable glossary of every term that appears in the dashboard. No jargon left unexplained.</p>
-      </a>
+  <section class="wow-tape-wrap">
+    <div class="wow-tape-track">
+      <div>RELIANCE · Risk Radar</div>
+      <div>TCS · Fundamentals Lens</div>
+      <div>INFY · News Timeline</div>
+      <div>HDFCBANK · Workflow</div>
+      <div>ITC · Stance Logic</div>
+      <div>SBIN · Candlestick Game</div>
+      <div>AXISBANK · Quest Mode</div>
+      <div>MARUTI · Signal Conflict</div>
+    </div>
+    <div class="wow-tape-track">
+      <div>RELIANCE · Risk Radar</div>
+      <div>TCS · Fundamentals Lens</div>
+      <div>INFY · News Timeline</div>
+      <div>HDFCBANK · Workflow</div>
+      <div>ITC · Stance Logic</div>
+      <div>SBIN · Candlestick Game</div>
+      <div>AXISBANK · Quest Mode</div>
+      <div>MARUTI · Signal Conflict</div>
+    </div>
+  </section>
+
+  <main class="container wow-main">
+    <section class="story-layout">
+      <div class="story-rail">
+        <article class="story-chapter is-active reveal" data-reveal
+          data-visual-tag="Step 1 of 5"
+          data-visual-title="Decode The Business"
+          data-visual-body="You start by understanding what the company actually sells, who pays for it, and whether that market is expanding."
+          data-visual-meter="22">
+          <span>01</span>
+          <h3>Business Clarity First</h3>
+          <p>If a beginner cannot explain the company in two sentences, they should not form a market view yet.</p>
+        </article>
+        <article class="story-chapter reveal" data-reveal
+          data-visual-tag="Step 2 of 5"
+          data-visual-title="Pressure-Test Fundamentals"
+          data-visual-body="Growth, profitability, leverage, and valuation are scored as learning dimensions instead of shallow green/red tips."
+          data-visual-meter="44">
+          <span>02</span>
+          <h3>Fundamentals As A Story</h3>
+          <p>Not just P/E and ROE numbers. We show what each metric says about resilience and quality.</p>
+        </article>
+        <article class="story-chapter reveal" data-reveal
+          data-visual-tag="Step 3 of 5"
+          data-visual-title="Map News To Consequence"
+          data-visual-body="Headlines are categorized into regulatory, legal, earnings, rating, and corporate action so beginners see impact pathways."
+          data-visual-meter="63">
+          <span>03</span>
+          <h3>Events Over Noise</h3>
+          <p>Market-wide chatter is separated from ticker-specific developments that are actually worth studying.</p>
+        </article>
+        <article class="story-chapter reveal" data-reveal
+          data-visual-tag="Step 4 of 5"
+          data-visual-title="Read The Chart Context"
+          data-visual-body="Trend, RSI, MACD, and volatility are translated into practical language and linked to a candlestick challenge."
+          data-visual-meter="82">
+          <span>04</span>
+          <h3>Technicals As A Learning Lens</h3>
+          <p>Patterns are useful only in context. You practice identifying them on live data, not textbook sketches alone.</p>
+        </article>
+        <article class="story-chapter reveal" data-reveal
+          data-visual-tag="Step 5 of 5"
+          data-visual-title="Decide: Study Further?"
+          data-visual-body="The output is an educational verdict: worth studying further, wait for confirmation, or risk appears elevated."
+          data-visual-meter="100">
+          <span>05</span>
+          <h3>Verdict Without Advice</h3>
+          <p>No “buy now.” No target price. Just evidence-backed next steps and uncertainty-aware reasoning.</p>
+        </article>
+      </div>
+
+      <aside class="story-visual reveal" data-reveal>
+        <div class="story-visual-head">
+          <small id="visual-tag">Step 1 of 5</small>
+          <h3 id="visual-title">Decode The Business</h3>
+          <p id="visual-body">You start by understanding what the company actually sells, who pays for it, and whether that market is expanding.</p>
+        </div>
+        <div class="visual-meter-wrap">
+          <div class="visual-meter-track">
+            <div id="visual-meter-fill" style="width:22%;"></div>
+          </div>
+          <div id="visual-meter-label">Learning Progress 22%</div>
+        </div>
+        <div class="visual-actions">
+          <a href="/dashboard">Open Analysis</a>
+          <a href="/quest">Play Quest</a>
+        </div>
+      </aside>
     </section>
 
-    <section class="section" style="border-top: 1px solid var(--line); padding-top: 56px;">
-      <h2>How this is different from a tipping app</h2>
-      <p class="lead-2">
-        We never tell you to buy or sell. The goal is for you to understand the
-        <em>questions a professional asks</em> — and to see them answered with real
-        numbers from the company you searched. So next time someone gives you a stock
-        tip, you know what to check before believing them.
-      </p>
-
-      <div class="features" style="margin-top: 0;">
-        <div class="feature-card">
-          <div class="feature-icon">🎯</div>
-          <h3>Educational, not advisory</h3>
-          <p>No "target price". No "buy below ₹X". Just structured questions and the data needed to answer them.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🇮🇳</div>
-          <h3>Indian-market aware</h3>
-          <p>Fetches NSE/BSE prices, Indian news outlets, and the same calendar data Zerodha and Groww use.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🧪</div>
-          <h3>Hands-on, not theoretical</h3>
-          <p>Every concept is shown with a real example from the ticker you typed. You learn by doing.</p>
-        </div>
-      </div>
+    <section class="wow-panels">
+      <article class="wow-panel reveal" data-reveal>
+        <h3>Quest Mode</h3>
+        <p>5 mission sprint. Build discipline before opinion.</p>
+        <a href="/quest">Launch Quest</a>
+      </article>
+      <article class="wow-panel reveal" data-reveal>
+        <h3>Candlestick Game</h3>
+        <p>Pattern challenge tied to real bars, not fake examples.</p>
+        <a href="/quest">Play Pattern Game</a>
+      </article>
+      <article class="wow-panel reveal" data-reveal>
+        <h3>Annual Report Lab</h3>
+        <p>Learn where pros find green flags and red flags in filings.</p>
+        <a href="/annual-report">Open Lab</a>
+      </article>
     </section>
   </main>
 
   <footer class="disclaimer">
     <div class="container">
-      <strong>Disclaimer:</strong> This site is for education only. It is not investment advice.
-      Nothing here tells you to buy, sell, hold, or set a price target.
-      Always consult a SEBI-registered financial advisor before making investment decisions.
+      <strong>Disclaimer:</strong> Educational content only. This platform does not provide buy/sell advice,
+      price targets, or guaranteed returns. Always consult a SEBI-registered financial advisor before investing.
     </div>
   </footer>
 
   <script src="/js/api.js"></script>
   <script src="/js/landing.js"></script>
+  <script src="/js/home-wow.js"></script>
 </body>
 </html>
